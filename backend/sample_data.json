@@ -1,0 +1,932 @@
+[
+{
+  "model": "accounts.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$sXN1YLbm6mUJBxPMudvL4x$XvIJpzWSBe42rTLnIK1pr/aVlujkdqjXls2lThpfUqQ=",
+    "last_login": "2025-11-25T10:48:37.901Z",
+    "is_superuser": true,
+    "username": "alvee",
+    "first_name": "",
+    "last_name": "",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2025-11-20T05:59:52.416Z",
+    "email": "fazlah.alvee20@gmail.com",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.user",
+  "pk": 2,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$f2trlnb0BEJmzFYFKS9GWd$MZEkXONI0OruB5fEENz7tLaEEQiCwXtrVdNLKzdyMbs=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "foysal",
+    "first_name": "Mahedi",
+    "last_name": "Foysal",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-11-24T09:09:12.843Z",
+    "email": "foysal@gmail.com",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.profile",
+  "pk": 1,
+  "fields": {
+    "created_at": "2025-11-24T09:22:36.124Z",
+    "updated_at": "2025-11-24T10:29:06.868Z",
+    "user": 2,
+    "phone": "01632987545",
+    "avatar": "",
+    "preferred_language": "en",
+    "is_verified": false
+  }
+},
+{
+  "model": "accounts.profile",
+  "pk": 2,
+  "fields": {
+    "created_at": "2025-11-25T10:47:57.320Z",
+    "updated_at": "2025-11-25T10:47:57.320Z",
+    "user": 1,
+    "phone": "",
+    "avatar": "",
+    "preferred_language": "",
+    "is_verified": false
+  }
+},
+{
+  "model": "catalog.author",
+  "pk": 1,
+  "fields": {
+    "created_at": "2025-11-24T09:02:57.965Z",
+    "updated_at": "2025-11-24T09:02:57.965Z",
+    "name": "Alvee",
+    "bio": "bungbang",
+    "website": ""
+  }
+},
+{
+  "model": "catalog.author",
+  "pk": 2,
+  "fields": {
+    "created_at": "2025-11-24T09:03:14.971Z",
+    "updated_at": "2025-11-24T09:03:14.971Z",
+    "name": "Foysal",
+    "bio": "Chudlingpong",
+    "website": ""
+  }
+},
+{
+  "model": "catalog.author",
+  "pk": 3,
+  "fields": {
+    "created_at": "2025-11-25T11:50:56.019Z",
+    "updated_at": "2025-11-25T11:50:56.019Z",
+    "name": "Mohasin",
+    "bio": "",
+    "website": ""
+  }
+},
+{
+  "model": "catalog.author",
+  "pk": 4,
+  "fields": {
+    "created_at": "2025-11-26T04:52:24.968Z",
+    "updated_at": "2025-11-26T04:52:24.969Z",
+    "name": "Humayun Ahmed",
+    "bio": "Popular Bangladeshi novelist, screenwriter and film director.",
+    "website": "https://example.com/humayun"
+  }
+},
+{
+  "model": "catalog.author",
+  "pk": 5,
+  "fields": {
+    "created_at": "2025-11-26T04:52:24.976Z",
+    "updated_at": "2025-11-26T04:52:24.976Z",
+    "name": "J.K. Rowling",
+    "bio": "Author of the Harry Potter series.",
+    "website": "https://www.jkrowling.com/"
+  }
+},
+{
+  "model": "catalog.author",
+  "pk": 6,
+  "fields": {
+    "created_at": "2025-11-26T04:52:24.982Z",
+    "updated_at": "2025-11-26T04:52:24.982Z",
+    "name": "Faruq Mahfuz Anam",
+    "bio": "Writer and lyricist, known for cultural contributions.",
+    "website": ""
+  }
+},
+{
+  "model": "catalog.category",
+  "pk": 1,
+  "fields": {
+    "created_at": "2025-11-24T09:03:35.951Z",
+    "updated_at": "2025-11-24T09:03:35.951Z",
+    "name": "SciFi",
+    "slug": "scifi",
+    "parent": null
+  }
+},
+{
+  "model": "catalog.category",
+  "pk": 2,
+  "fields": {
+    "created_at": "2025-11-24T09:04:19.337Z",
+    "updated_at": "2025-11-24T09:04:19.337Z",
+    "name": "Romance",
+    "slug": "romance",
+    "parent": null
+  }
+},
+{
+  "model": "catalog.category",
+  "pk": 3,
+  "fields": {
+    "created_at": "2025-11-25T11:50:42.838Z",
+    "updated_at": "2025-11-25T11:50:42.838Z",
+    "name": "Thriller",
+    "slug": "thriller",
+    "parent": null
+  }
+},
+{
+  "model": "catalog.category",
+  "pk": 4,
+  "fields": {
+    "created_at": "2025-11-26T04:52:24.988Z",
+    "updated_at": "2025-11-26T04:52:24.988Z",
+    "name": "Fiction",
+    "slug": "fiction",
+    "parent": null
+  }
+},
+{
+  "model": "catalog.category",
+  "pk": 5,
+  "fields": {
+    "created_at": "2025-11-26T04:52:24.993Z",
+    "updated_at": "2025-11-26T04:52:24.993Z",
+    "name": "Fantasy",
+    "slug": "fantasy",
+    "parent": 4
+  }
+},
+{
+  "model": "catalog.category",
+  "pk": 6,
+  "fields": {
+    "created_at": "2025-11-26T04:52:25.004Z",
+    "updated_at": "2025-11-26T04:52:25.004Z",
+    "name": "Science Fiction",
+    "slug": "science-fiction",
+    "parent": 4
+  }
+},
+{
+  "model": "catalog.category",
+  "pk": 7,
+  "fields": {
+    "created_at": "2025-11-26T04:52:25.008Z",
+    "updated_at": "2025-11-26T04:52:25.008Z",
+    "name": "Non-fiction",
+    "slug": "non-fiction",
+    "parent": null
+  }
+},
+{
+  "model": "catalog.category",
+  "pk": 8,
+  "fields": {
+    "created_at": "2025-11-26T04:52:25.014Z",
+    "updated_at": "2025-11-26T04:52:25.014Z",
+    "name": "Biography",
+    "slug": "biography",
+    "parent": 7
+  }
+},
+{
+  "model": "catalog.tag",
+  "pk": 1,
+  "fields": {
+    "created_at": "2025-11-24T09:04:31.182Z",
+    "updated_at": "2025-11-24T09:04:31.182Z",
+    "name": "bestBook",
+    "slug": "bestbook"
+  }
+},
+{
+  "model": "catalog.tag",
+  "pk": 2,
+  "fields": {
+    "created_at": "2025-11-24T09:04:49.596Z",
+    "updated_at": "2025-11-24T09:04:49.596Z",
+    "name": "comics",
+    "slug": "comics"
+  }
+},
+{
+  "model": "catalog.tag",
+  "pk": 3,
+  "fields": {
+    "created_at": "2025-11-26T04:52:25.020Z",
+    "updated_at": "2025-11-26T04:52:25.020Z",
+    "name": "bestseller",
+    "slug": "bestseller"
+  }
+},
+{
+  "model": "catalog.tag",
+  "pk": 4,
+  "fields": {
+    "created_at": "2025-11-26T04:52:25.026Z",
+    "updated_at": "2025-11-26T04:52:25.026Z",
+    "name": "classic",
+    "slug": "classic"
+  }
+},
+{
+  "model": "catalog.tag",
+  "pk": 5,
+  "fields": {
+    "created_at": "2025-11-26T04:52:25.032Z",
+    "updated_at": "2025-11-26T04:52:25.032Z",
+    "name": "new",
+    "slug": "new"
+  }
+},
+{
+  "model": "catalog.tag",
+  "pk": 6,
+  "fields": {
+    "created_at": "2025-11-26T04:52:25.036Z",
+    "updated_at": "2025-11-26T04:52:25.036Z",
+    "name": "award-winning",
+    "slug": "award-winning"
+  }
+},
+{
+  "model": "catalog.book",
+  "pk": 1,
+  "fields": {
+    "created_at": "2025-11-24T09:06:43.934Z",
+    "updated_at": "2025-11-24T09:06:43.934Z",
+    "title": "A child with postive mind",
+    "slug": "a-child-with-postive-mind",
+    "description": "Description text",
+    "file": "books/files/49f2a6af8db33b786f4cbbae34e72ab2.pdf",
+    "cover_image": "books/covers/nonfiction2.webp",
+    "sample_file": "",
+    "price": "599.00",
+    "discount_price": "456.00",
+    "currency": "BDT",
+    "isbn": "12werds22",
+    "language": "Bangla",
+    "pages": 120,
+    "file_format": "pdf",
+    "publication_date": "2025-11-24",
+    "is_published": true,
+    "authors": [
+      2
+    ],
+    "categories": [
+      2
+    ],
+    "tags": [
+      1,
+      2
+    ]
+  }
+},
+{
+  "model": "catalog.book",
+  "pk": 3,
+  "fields": {
+    "created_at": "2025-11-26T04:52:25.068Z",
+    "updated_at": "2025-11-26T04:55:50.390Z",
+    "title": "Himu",
+    "slug": "himu",
+    "description": "A novel featuring the iconic character Himu.",
+    "file": "",
+    "cover_image": "books/covers/himu.webp",
+    "sample_file": "",
+    "price": "350.00",
+    "discount_price": "300.00",
+    "currency": "BDT",
+    "isbn": "978-984-1234-567",
+    "language": "Bangla",
+    "pages": 220,
+    "file_format": "pdf",
+    "publication_date": "1993-01-01",
+    "is_published": true,
+    "authors": [
+      4
+    ],
+    "categories": [
+      4,
+      5
+    ],
+    "tags": [
+      3,
+      4
+    ]
+  }
+},
+{
+  "model": "catalog.book",
+  "pk": 4,
+  "fields": {
+    "created_at": "2025-11-26T04:52:25.108Z",
+    "updated_at": "2025-11-26T06:17:45.741Z",
+    "title": "Harry Potter and the Philosopher's Stone",
+    "slug": "harry-potter-and-the-philosophers-stone",
+    "description": "The first book of the Harry Potter series.",
+    "file": "books/files/49f2a6af8db33b786f4cbbae34e72ab2_RA3yqyZ.pdf",
+    "cover_image": "books/covers/heery.webp",
+    "sample_file": "",
+    "price": "1200.00",
+    "discount_price": null,
+    "currency": "BDT",
+    "isbn": "978-0747532699",
+    "language": "English",
+    "pages": 352,
+    "file_format": "epub",
+    "publication_date": "1997-06-26",
+    "is_published": true,
+    "authors": [
+      5
+    ],
+    "categories": [
+      4,
+      5
+    ],
+    "tags": [
+      3,
+      6
+    ]
+  }
+},
+{
+  "model": "catalog.book",
+  "pk": 5,
+  "fields": {
+    "created_at": "2025-11-26T04:52:25.152Z",
+    "updated_at": "2025-11-26T04:55:22.522Z",
+    "title": "The Future of AI",
+    "slug": "the-future-of-ai",
+    "description": "A deep dive into artificial intelligence and its impact.",
+    "file": "",
+    "cover_image": "books/covers/aibook.webp",
+    "sample_file": "",
+    "price": "800.00",
+    "discount_price": "750.00",
+    "currency": "BDT",
+    "isbn": "978-984-7777-999",
+    "language": "English",
+    "pages": 410,
+    "file_format": "pdf",
+    "publication_date": "2023-08-12",
+    "is_published": true,
+    "authors": [
+      6
+    ],
+    "categories": [
+      7
+    ],
+    "tags": [
+      5
+    ]
+  }
+},
+{
+  "model": "orders.cart",
+  "pk": 1,
+  "fields": {
+    "created_at": "2025-11-24T09:08:51.522Z",
+    "updated_at": "2025-11-24T09:08:51.522Z",
+    "user": 1,
+    "session_id": ""
+  }
+},
+{
+  "model": "orders.cart",
+  "pk": 2,
+  "fields": {
+    "created_at": "2025-11-24T09:22:43.713Z",
+    "updated_at": "2025-11-24T09:22:43.713Z",
+    "user": 2,
+    "session_id": ""
+  }
+},
+{
+  "model": "orders.order",
+  "pk": 1,
+  "fields": {
+    "created_at": "2025-11-24T09:23:41.838Z",
+    "updated_at": "2025-11-24T09:23:41.838Z",
+    "user": 2,
+    "order_number": "F5C466C3DADE",
+    "status": "pending",
+    "total_amount": "228.00",
+    "currency": "BDT",
+    "payment_method": "manual_bkash",
+    "billing_address": null,
+    "paid_at": null
+  }
+},
+{
+  "model": "orders.order",
+  "pk": 2,
+  "fields": {
+    "created_at": "2025-11-25T10:48:22.300Z",
+    "updated_at": "2025-11-25T10:48:22.300Z",
+    "user": 1,
+    "order_number": "F9884B1C4DEC",
+    "status": "pending",
+    "total_amount": "456.00",
+    "currency": "BDT",
+    "payment_method": "manual_bkash",
+    "billing_address": null,
+    "paid_at": null
+  }
+},
+{
+  "model": "orders.order",
+  "pk": 3,
+  "fields": {
+    "created_at": "2025-11-26T06:16:46.520Z",
+    "updated_at": "2025-11-26T06:16:46.520Z",
+    "user": 1,
+    "order_number": "EFDAB6104D96",
+    "status": "pending",
+    "total_amount": "600.00",
+    "currency": "BDT",
+    "payment_method": "manual_bkash",
+    "billing_address": null,
+    "paid_at": null
+  }
+},
+{
+  "model": "orders.orderitem",
+  "pk": 1,
+  "fields": {
+    "created_at": "2025-11-24T09:23:41.842Z",
+    "updated_at": "2025-11-24T09:23:41.842Z",
+    "order": 1,
+    "book": 1,
+    "quantity": 1,
+    "unit_price": "456.00",
+    "subtotal": "456.00"
+  }
+},
+{
+  "model": "orders.orderitem",
+  "pk": 2,
+  "fields": {
+    "created_at": "2025-11-25T10:48:22.306Z",
+    "updated_at": "2025-11-25T10:48:22.306Z",
+    "order": 2,
+    "book": 1,
+    "quantity": 1,
+    "unit_price": "456.00",
+    "subtotal": "456.00"
+  }
+},
+{
+  "model": "orders.orderitem",
+  "pk": 3,
+  "fields": {
+    "created_at": "2025-11-26T06:16:46.524Z",
+    "updated_at": "2025-11-26T06:16:46.524Z",
+    "order": 3,
+    "book": 4,
+    "quantity": 1,
+    "unit_price": "1200.00",
+    "subtotal": "1200.00"
+  }
+},
+{
+  "model": "payments.payment",
+  "pk": 1,
+  "fields": {
+    "created_at": "2025-11-24T09:23:41.849Z",
+    "updated_at": "2025-11-24T09:24:07.693Z",
+    "order": 1,
+    "gateway": "manual_bkash",
+    "amount": "228.00",
+    "currency": "BDT",
+    "gateway_transaction_id": "klqo323",
+    "status": "success",
+    "raw_response": null,
+    "payer_number": "01642874989",
+    "customer_note": "nice",
+    "submitted_at": null,
+    "verified_by": null,
+    "verified_at": null
+  }
+},
+{
+  "model": "payments.payment",
+  "pk": 2,
+  "fields": {
+    "created_at": "2025-11-25T10:48:22.316Z",
+    "updated_at": "2025-11-25T10:48:52.761Z",
+    "order": 2,
+    "gateway": "manual_bkash",
+    "amount": "456.00",
+    "currency": "BDT",
+    "gateway_transaction_id": "25kkj",
+    "status": "success",
+    "raw_response": null,
+    "payer_number": "01642874989",
+    "customer_note": "jiiji",
+    "submitted_at": null,
+    "verified_by": null,
+    "verified_at": null
+  }
+},
+{
+  "model": "payments.payment",
+  "pk": 3,
+  "fields": {
+    "created_at": "2025-11-26T06:16:46.530Z",
+    "updated_at": "2025-11-26T06:16:59.427Z",
+    "order": 3,
+    "gateway": "manual_bkash",
+    "amount": "600.00",
+    "currency": "BDT",
+    "gateway_transaction_id": "khu8",
+    "status": "success",
+    "raw_response": null,
+    "payer_number": "016482895",
+    "customer_note": "ji",
+    "submitted_at": null,
+    "verified_by": null,
+    "verified_at": null
+  }
+},
+{
+  "model": "downloads.purchaseitem",
+  "pk": 1,
+  "fields": {
+    "created_at": "2025-11-24T09:23:41.846Z",
+    "updated_at": "2025-11-24T09:24:25.663Z",
+    "user": 2,
+    "book": 1,
+    "order_item": 1,
+    "purchased_at": "2025-11-24T09:23:41Z",
+    "download_limit": null,
+    "downloads_count": 1,
+    "is_active": true
+  }
+},
+{
+  "model": "downloads.purchaseitem",
+  "pk": 2,
+  "fields": {
+    "created_at": "2025-11-25T10:48:22.312Z",
+    "updated_at": "2025-11-25T10:49:22.413Z",
+    "user": 1,
+    "book": 1,
+    "order_item": 2,
+    "purchased_at": "2025-11-25T10:48:22Z",
+    "download_limit": null,
+    "downloads_count": 1,
+    "is_active": true
+  }
+},
+{
+  "model": "downloads.purchaseitem",
+  "pk": 3,
+  "fields": {
+    "created_at": "2025-11-26T06:16:46.527Z",
+    "updated_at": "2025-11-26T06:17:15.741Z",
+    "user": 1,
+    "book": 4,
+    "order_item": 3,
+    "purchased_at": "2025-11-26T06:16:46Z",
+    "download_limit": null,
+    "downloads_count": 2,
+    "is_active": true
+  }
+},
+{
+  "model": "downloads.downloadlog",
+  "pk": 1,
+  "fields": {
+    "created_at": "2025-11-24T09:24:31.563Z",
+    "updated_at": "2025-11-24T09:24:31.563Z",
+    "purchase_item": 1,
+    "ip_address": "127.0.0.1",
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36",
+    "downloaded_at": "2025-11-24T09:24:31.563Z"
+  }
+},
+{
+  "model": "downloads.downloadlog",
+  "pk": 2,
+  "fields": {
+    "created_at": "2025-11-26T06:17:25.848Z",
+    "updated_at": "2025-11-26T06:17:25.848Z",
+    "purchase_item": 2,
+    "ip_address": "127.0.0.1",
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36",
+    "downloaded_at": "2025-11-26T06:17:25.848Z"
+  }
+},
+{
+  "model": "downloads.downloadlog",
+  "pk": 3,
+  "fields": {
+    "created_at": "2025-11-26T06:17:50.205Z",
+    "updated_at": "2025-11-26T06:17:50.205Z",
+    "purchase_item": 3,
+    "ip_address": "127.0.0.1",
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36",
+    "downloaded_at": "2025-11-26T06:17:50.205Z"
+  }
+},
+{
+  "model": "downloads.downloadlog",
+  "pk": 4,
+  "fields": {
+    "created_at": "2025-11-26T06:29:06.160Z",
+    "updated_at": "2025-11-26T06:29:06.160Z",
+    "purchase_item": 3,
+    "ip_address": "127.0.0.1",
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36",
+    "downloaded_at": "2025-11-26T06:29:06.160Z"
+  }
+},
+{
+  "model": "downloads.downloadlink",
+  "pk": 1,
+  "fields": {
+    "created_at": "2025-11-24T09:24:31.481Z",
+    "updated_at": "2025-11-24T09:24:31.481Z",
+    "purchase_item": 1,
+    "token": "ovSR9D8j7r4hrAfIqrSdpbX-O7WtZcrdvnl9ysSt6jk",
+    "expires_at": "2025-11-24T09:34:31.481Z",
+    "is_used_once": false
+  }
+},
+{
+  "model": "downloads.downloadlink",
+  "pk": 2,
+  "fields": {
+    "created_at": "2025-11-26T06:17:19.676Z",
+    "updated_at": "2025-11-26T06:17:19.676Z",
+    "purchase_item": 3,
+    "token": "jnTtKvscph9CA7oZDeTlO7jVxV500EpAX7OcVXcRlmk",
+    "expires_at": "2025-11-26T06:27:19.676Z",
+    "is_used_once": false
+  }
+},
+{
+  "model": "downloads.downloadlink",
+  "pk": 3,
+  "fields": {
+    "created_at": "2025-11-26T06:17:25.781Z",
+    "updated_at": "2025-11-26T06:17:25.781Z",
+    "purchase_item": 2,
+    "token": "tAu_C0gxmUhtLE0UqsuxVNKybCoQDRPEFFqA6UFOQ4I",
+    "expires_at": "2025-11-26T06:27:25.781Z",
+    "is_used_once": false
+  }
+},
+{
+  "model": "downloads.downloadlink",
+  "pk": 4,
+  "fields": {
+    "created_at": "2025-11-26T06:17:50.128Z",
+    "updated_at": "2025-11-26T06:17:50.128Z",
+    "purchase_item": 3,
+    "token": "ebaAXuz520GnQ2PEUdukFz6RF1saaC8Bkea-K5puQX0",
+    "expires_at": "2025-11-26T06:27:50.128Z",
+    "is_used_once": false
+  }
+},
+{
+  "model": "downloads.downloadlink",
+  "pk": 5,
+  "fields": {
+    "created_at": "2025-11-26T06:29:06.070Z",
+    "updated_at": "2025-11-26T06:29:06.070Z",
+    "purchase_item": 3,
+    "token": "MJ7Xxug5vwHMC4Fic1uZRLTApGGh2EgES7ZEjlzY8vo",
+    "expires_at": "2025-11-26T06:39:06.070Z",
+    "is_used_once": false
+  }
+},
+{
+  "model": "coupons.coupon",
+  "pk": 1,
+  "fields": {
+    "created_at": "2025-11-24T09:23:18.821Z",
+    "updated_at": "2025-11-24T09:23:18.821Z",
+    "code": "newuser",
+    "description": "",
+    "discount_type": "percentage",
+    "amount": "50.00",
+    "max_uses": null,
+    "uses_count": 2,
+    "valid_from": "2025-11-24T09:23:03Z",
+    "valid_to": null,
+    "is_active": true
+  }
+},
+{
+  "model": "coupons.couponredemption",
+  "pk": 1,
+  "fields": {
+    "created_at": "2025-11-24T09:23:41.853Z",
+    "updated_at": "2025-11-24T09:23:41.853Z",
+    "coupon": 1,
+    "user": 2,
+    "order": 1,
+    "redeemed_at": "2025-11-24T09:23:41.853Z"
+  }
+},
+{
+  "model": "coupons.couponredemption",
+  "pk": 2,
+  "fields": {
+    "created_at": "2025-11-26T06:16:46.532Z",
+    "updated_at": "2025-11-26T06:16:46.532Z",
+    "coupon": 1,
+    "user": 1,
+    "order": 3,
+    "redeemed_at": "2025-11-26T06:16:46.532Z"
+  }
+},
+{
+  "model": "blog.post",
+  "pk": 1,
+  "fields": {
+    "created_at": "2025-11-25T11:09:33.412Z",
+    "updated_at": "2025-11-25T11:12:17.954Z",
+    "title": "The Future of AI in Everyday Life",
+    "slug": "the-future-of-ai-in-everyday-life",
+    "summary": "AI is changing how we live, work, and interact with technology.",
+    "content": "<p>Artificial Intelligence is shaping the future...</p>",
+    "featured_image": "blog/featured/b1.webp",
+    "author": 1,
+    "is_published": true,
+    "published_at": "2025-11-25T11:10:48Z"
+  }
+},
+{
+  "model": "blog.post",
+  "pk": 2,
+  "fields": {
+    "created_at": "2025-11-25T11:09:39.067Z",
+    "updated_at": "2025-11-25T11:12:33.665Z",
+    "title": "Top 10 Tips for Beginner Programmers",
+    "slug": "top-10-tips-for-beginner-programmers",
+    "summary": "If you're new to programming, these tips will help.",
+    "content": "<p>Start with the basics...</p>",
+    "featured_image": "blog/featured/b2.webp",
+    "author": 1,
+    "is_published": true,
+    "published_at": "2025-01-12T09:00:00Z"
+  }
+},
+{
+  "model": "blog.post",
+  "pk": 3,
+  "fields": {
+    "created_at": "2025-11-25T11:09:44.066Z",
+    "updated_at": "2025-11-25T11:12:40.060Z",
+    "title": "Why Reading Books Improves Your Thinking",
+    "slug": "why-reading-books-improves-your-thinking",
+    "summary": "Reading strengthens your brain and imagination.",
+    "content": "<p>Books are powerful tools...</p>",
+    "featured_image": "blog/featured/b3.webp",
+    "author": 1,
+    "is_published": true,
+    "published_at": "2025-01-15T14:00:00Z"
+  }
+},
+{
+  "model": "blog.post",
+  "pk": 4,
+  "fields": {
+    "created_at": "2025-11-25T11:09:49.196Z",
+    "updated_at": "2025-11-25T11:12:46.159Z",
+    "title": "How to Start a Successful Online Business",
+    "slug": "how-to-start-a-successful-online-business",
+    "summary": "A complete guide to launching your business online.",
+    "content": "<p>Starting a business requires strategy...</p>",
+    "featured_image": "blog/featured/b4.webp",
+    "author": 1,
+    "is_published": true,
+    "published_at": "2025-01-18T11:45:00Z"
+  }
+},
+{
+  "model": "blog.post",
+  "pk": 5,
+  "fields": {
+    "created_at": "2025-11-25T11:10:06.157Z",
+    "updated_at": "2025-11-25T11:12:54.077Z",
+    "title": "Best Practices for Secure Web Development",
+    "slug": "best-practices-for-secure-web-development",
+    "summary": "Security is the backbone of every web app.",
+    "content": "<p>Web security begins with understanding vulnerabilities...</p>",
+    "featured_image": "blog/featured/b5.webp",
+    "author": 1,
+    "is_published": true,
+    "published_at": "2025-01-20T08:15:00Z"
+  }
+},
+{
+  "model": "blog.post",
+  "pk": 6,
+  "fields": {
+    "created_at": "2025-11-25T11:10:11.591Z",
+    "updated_at": "2025-11-25T11:13:13.540Z",
+    "title": "The Rise of E-Commerce in Bangladesh",
+    "slug": "the-rise-of-e-commerce-in-bangladesh",
+    "summary": "E-commerce is booming in Bangladesh.",
+    "content": "<p>From small startups to major brands...</p>",
+    "featured_image": "blog/featured/b10.webp",
+    "author": 1,
+    "is_published": true,
+    "published_at": "2025-01-22T16:50:00Z"
+  }
+},
+{
+  "model": "blog.post",
+  "pk": 7,
+  "fields": {
+    "created_at": "2025-11-25T11:10:16.218Z",
+    "updated_at": "2025-11-25T11:13:01.558Z",
+    "title": "How to Build a Blog Using Django",
+    "slug": "how-to-build-a-blog-using-django",
+    "summary": "A beginner-friendly tutorial to build a blog system.",
+    "content": "<p>Django makes development easier...</p>",
+    "featured_image": "blog/featured/b6.webp",
+    "author": 1,
+    "is_published": true,
+    "published_at": "2025-01-25T13:00:00Z"
+  }
+},
+{
+  "model": "blog.post",
+  "pk": 8,
+  "fields": {
+    "created_at": "2025-11-25T11:10:21.363Z",
+    "updated_at": "2025-11-25T11:13:46.929Z",
+    "title": "5 Habits That Boost Productivity Instantly",
+    "slug": "5-habits-that-boost-productivity-instantly",
+    "summary": "Small habits create big changes.",
+    "content": "<p>Productivity doesn't require huge changes...</p>",
+    "featured_image": "blog/featured/b6_kn2Hreq.webp",
+    "author": 1,
+    "is_published": true,
+    "published_at": "2025-01-28T07:20:00Z"
+  }
+},
+{
+  "model": "blog.post",
+  "pk": 9,
+  "fields": {
+    "created_at": "2025-11-25T11:10:26.830Z",
+    "updated_at": "2025-11-25T11:13:38.616Z",
+    "title": "Understanding Machine Learning in Simple Words",
+    "slug": "understanding-machine-learning-in-simple-words",
+    "summary": "Machine learning explained simply.",
+    "content": "<p>Machine learning enables systems to learn...</p>",
+    "featured_image": "blog/featured/b8.webp",
+    "author": 1,
+    "is_published": true,
+    "published_at": "2025-02-01T09:40:00Z"
+  }
+},
+{
+  "model": "blog.post",
+  "pk": 10,
+  "fields": {
+    "created_at": "2025-11-25T11:10:31.293Z",
+    "updated_at": "2025-11-25T11:13:20.270Z",
+    "title": "The Importance of UI/UX in Modern Applications",
+    "slug": "the-importance-of-uiux-in-modern-applications",
+    "summary": "Good UI/UX determines the success of an app.",
+    "content": "<p>User experience is more important than ever...</p>",
+    "featured_image": "blog/featured/b9.webp",
+    "author": 1,
+    "is_published": true,
+    "published_at": "2025-02-05T12:10:00Z"
+  }
+}
+]
