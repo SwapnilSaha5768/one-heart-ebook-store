@@ -1,9 +1,11 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { Star } from "lucide-react";
+import { addToCart } from "../features/cart/cartSlice";
 
 export default function MostSelling() {
     const { items: books } = useSelector((state) => state.books);
+    const dispatch = useDispatch();
     const navigate = useNavigate();
 
     // For demo, just take the first 3 books or specific ones
@@ -48,7 +50,13 @@ export default function MostSelling() {
                                     {book.effective_price || book.price} {book.currency || "BDT"}
                                 </p>
 
-                                <button className="mt-auto bg-brand-red text-white px-6 py-2 rounded-full text-sm font-semibold hover:bg-red-600 transition-colors w-full max-w-[200px]">
+                                <button
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        dispatch(addToCart({ bookId: book.id }));
+                                    }}
+                                    className="mt-auto bg-brand-red text-white px-6 py-2 rounded-full text-sm font-semibold hover:bg-red-600 transition-colors w-full max-w-[200px]"
+                                >
                                     Add To Cart
                                 </button>
                             </div>

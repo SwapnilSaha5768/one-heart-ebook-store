@@ -45,11 +45,11 @@ class BookListSerializer(serializers.ModelSerializer):
             'effective_price',
             'currency',
             'authors',
+            'categories',
             'is_published',
             'average_rating',
             'reviews_count',
             'description',
-            'categories',
         ]
 
 

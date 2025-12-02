@@ -1,16 +1,12 @@
+#backed/accounts/urls.py
+
 from django.urls import path
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
-    TokenRefreshView,
+    TokenRefreshView
 )
 
-from .views import (
-    RegisterView, 
-    MeView, 
-    AddressListCreateView, 
-    AddressDetailView,
-    ThrottledTokenObtainPairView
-)
+from .views import RegisterView, MeView, AddressListCreateView, AddressDetailView,ThrottledTokenObtainPairView,VerifyEmailOTPView, ResendEmailOTPView, ForgotPasswordRequestView, ResetPasswordView
 
 urlpatterns = [
     # Register
@@ -25,6 +21,8 @@ urlpatterns = [
 
     path('addresses/', AddressListCreateView.as_view(), name='address_list_create'),
     path('addresses/<int:pk>/', AddressDetailView.as_view(), name='address_detail'),
-
-
+    path('verify-email/', VerifyEmailOTPView.as_view(), name='verify_email'),
+    path('resend-otp/', ResendEmailOTPView.as_view(), name='resend_otp'),
+    path('forgot-password/', ForgotPasswordRequestView.as_view(), name='forgot_password'),
+    path('reset-password/', ResetPasswordView.as_view(), name='reset_password'),
 ]

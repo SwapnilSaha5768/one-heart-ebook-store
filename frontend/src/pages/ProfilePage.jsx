@@ -257,7 +257,7 @@ function ProfilePage() {
                   {user?.first_name?.[0] || user?.username?.[0] || "U"}
                 </div>
                 <div className="overflow-hidden">
-                  <h3 className="font-bold text-gray-900 truncate">{user?.first_name || "User"}</h3>
+                  <h3 className="font-bold text-gray-900 truncate">{user?.username || "User"}</h3>
                   <div className="flex items-center gap-2 mt-1">
                     <p className="text-xs text-gray-500 truncate">{user?.email}</p>
                   </div>

@@ -28,3 +28,19 @@ export const updateMe = async (payload) => {
   const res = await axiosClient.patch("/auth/me/", payload);
   return res.data;
 };
+
+export const verifyEmailApi = (email, code) =>
+  axiosClient.post("/auth/verify-email/", { email, code });
+
+export const resendOtpApi = (email) =>
+  axiosClient.post("/auth/resend-otp/", { email });
+
+export const forgotPasswordRequestApi = (identifier) =>
+  axiosClient.post("/auth/forgot-password/", { identifier });
+
+export const resetPasswordApi = (email, code, newPassword) =>
+  axiosClient.post("/auth/reset-password/", {
+    email,
+    code,
+    new_password: newPassword,
+  });

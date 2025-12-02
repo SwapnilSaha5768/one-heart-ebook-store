@@ -12,3 +12,4 @@ drf-yasg
 redis
 django-ratelimit
 django-filter
+django-environ

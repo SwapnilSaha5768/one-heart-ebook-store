@@ -1,12 +1,14 @@
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { addToCart } from "../features/cart/cartSlice";
 
 const CATEGORIES = ["All", "Education", "Parenting", "Science", "Sports", "Fiction"];
 
 export default function BookCategories() {
     const [activeCategory, setActiveCategory] = useState("All");
     const { items: books } = useSelector((state) => state.books);
+    const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const filteredBooks = activeCategory === "All"
@@ -160,7 +162,13 @@ export default function BookCategories() {
                                             </span>
 
                                             <div className="flex gap-2 w-full">
-                                                <button className="flex-1 bg-brand-red text-white py-2 rounded text-sm font-medium hover:bg-red-600 transition-colors">
+                                                <button
+                                                    onClick={(e) => {
+                                                        e.stopPropagation();
+                                                        dispatch(addToCart({ bookId: book.id }));
+                                                    }}
+                                                    className="flex-1 bg-brand-red text-white py-2 rounded text-sm font-medium hover:bg-red-600 transition-colors"
+                                                >
                                                     Add To Cart
                                                 </button>
                                             </div>

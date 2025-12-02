@@ -52,9 +52,9 @@ export default function CartPage() {
               >
                 <div className="flex items-center gap-4">
                   {/* Optional: Add image here if available in item.book.cover_image */}
-                  {item.book?.cover_image && (
+                  {/* {item.book?.cover_image && (
                     <img src={item.book.cover_image} alt={item.book.title} className="w-12 h-16 object-cover rounded" />
-                  )}
+                  )} */}
                   <div>
                     <div className="font-semibold text-gray-900">
                       {item.book?.title || "Book"}

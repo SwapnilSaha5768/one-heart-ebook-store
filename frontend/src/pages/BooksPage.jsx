@@ -6,8 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Search, Filter, Star, ShoppingCart, ChevronDown, BookOpen, X, Clock, Tag } from "lucide-react";
 import { addToCart } from "../features/cart/cartSlice";
 import axios from "axios";
-
-// ... (BookDetailsPanel component remains unchanged)
+import BookDetailsPanel from "../components/BookDetails";
 
 export default function BooksPage() {
     const dispatch = useDispatch();
@@ -16,7 +15,7 @@ export default function BooksPage() {
 
     const [searchTerm, setSearchTerm] = useState("");
     const [selectedCategory, setSelectedCategory] = useState("All");
-    const [priceRange, setPriceRange] = useState([0, 1000]);
+    const [priceRange, setPriceRange] = useState([0, 4000]);
     const [sortBy, setSortBy] = useState("newest");
     const [showMobileFilters, setShowMobileFilters] = useState(false);
 
@@ -29,7 +28,9 @@ export default function BooksPage() {
 
     // Extract unique categories
     const categories = useMemo(() => {
-        const cats = new Set(books.map(b => b.category).filter(Boolean));
+        // Flatten all categories from all books
+        const allCats = books.flatMap(b => b.categories?.map(c => c.name) || []);
+        const cats = new Set(allCats.filter(Boolean));
         return ["All", ...Array.from(cats)];
     }, [books]);
 
@@ -38,23 +39,26 @@ export default function BooksPage() {
         return books
             .filter(book => {
                 const matchesSearch = book.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                    book.author?.toLowerCase().includes(searchTerm.toLowerCase());
-                const matchesCategory = selectedCategory === "All" || book.category === selectedCategory;
+                    book.authors?.some(a => a.name.toLowerCase().includes(searchTerm.toLowerCase()));
+
+                const bookCategories = book.categories?.map(c => c.name) || [];
+                const matchesCategory = selectedCategory === "All" || bookCategories.includes(selectedCategory);
+
                 const matchesPrice = (book.price || 0) >= priceRange[0] && (book.price || 0) <= priceRange[1];
                 return matchesSearch && matchesCategory && matchesPrice;
             })
             .sort((a, b) => {
                 if (sortBy === "price-low") return (a.price || 0) - (b.price || 0);
                 if (sortBy === "price-high") return (b.price || 0) - (a.price || 0);
-                if (sortBy === "rating") return (b.rating || 0) - (a.rating || 0);
+                if (sortBy === "rating") return (b.average_rating || 0) - (a.average_rating || 0);
                 return b.id - a.id;
             });
     }, [books, searchTerm, selectedCategory, priceRange, sortBy]);
 
     const handleAddToCart = (e, book) => {
-        e.stopPropagation(); // Prevent opening details when clicking add to cart
+        e.stopPropagation();
         e.preventDefault();
-        dispatch(addToCart(book));
+        dispatch(addToCart({ bookId: book.id }));
     };
 
     const openBookDetails = (e, book) => {
@@ -146,15 +150,15 @@ export default function BooksPage() {
                         <div className="bg-white p-5 rounded-xl shadow-sm border border-gray-100">
                             <h3 className="font-bold text-gray-900 mb-4">Price Range</h3>
                             <div className="flex items-center gap-2 text-sm text-gray-600 mb-4">
-                                <span>${priceRange[0]}</span>
+                                <span>৳ {priceRange[0]}</span>
                                 <span className="flex-1 h-px bg-gray-200"></span>
-                                <span>${priceRange[1]}</span>
+                                <span>৳ {priceRange[1]}</span>
                             </div>
                             <input
                                 type="range"
                                 min="0"
-                                max="2000"
-                                step="50"
+                                max="4000"
+                                step="80"
                                 value={priceRange[1]}
                                 onChange={(e) => setPriceRange([priceRange[0], parseInt(e.target.value)])}
                                 className="w-full accent-brand-red"
@@ -189,7 +193,7 @@ export default function BooksPage() {
 
                         {/* Books Grid */}
                         {filteredBooks.length > 0 ? (
-                            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+                            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4  gap-6">
                                 {filteredBooks.map((book) => (
                                     <div
                                         key={book.id}
@@ -224,15 +228,21 @@ export default function BooksPage() {
                                         </div>
 
                                         <div className="p-4 flex flex-col flex-grow">
-                                            <div className="text-xs text-gray-500 mb-1">{book.category || "Uncategorized"}</div>
+                                            <div className="text-xs text-gray-500 mb-1">
+                                                {book.categories?.map(c => c.name).join(", ") || "Uncategorized"}
+                                            </div>
                                             <h3 className="font-bold text-gray-900 mb-1 line-clamp-1 group-hover:text-brand-red transition-colors">{book.title}</h3>
-                                            <p className="text-sm text-gray-600 mb-2">{book.author}</p>
+                                            <p className="text-sm text-gray-600 mb-2">
+                                                {book.authors?.map(a => a.name).join(", ") || "Unknown Author"}
+                                            </p>
 
                                             <div className="mt-auto flex items-center justify-between">
-                                                <span className="text-lg font-bold text-brand-red">${book.price}</span>
+                                                <span className="text-lg font-bold text-brand-red">
+                                                    {book.effective_price || book.price} {book.currency || "BDT"}
+                                                </span>
                                                 <div className="flex items-center gap-1 text-yellow-400 text-xs">
                                                     <Star size={12} fill="currentColor" />
-                                                    <span className="text-gray-600 font-medium">{book.rating || "4.5"}</span>
+                                                    <span className="text-gray-600 font-medium">{book.average_rating || "4.5"}</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -245,7 +255,7 @@ export default function BooksPage() {
                                 <h3 className="text-lg font-bold text-gray-900">No books found</h3>
                                 <p className="text-gray-500">Try adjusting your search or filters.</p>
                                 <button
-                                    onClick={() => { setSearchTerm(""); setSelectedCategory("All"); setPriceRange([0, 1000]); }}
+                                    onClick={() => { setSearchTerm(""); setSelectedCategory("All"); setPriceRange([0, 4000]); }}
                                     className="mt-4 text-brand-red font-medium hover:underline"
                                 >
                                     Clear all filters

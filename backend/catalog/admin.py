@@ -48,6 +48,7 @@ class BookAdmin(admin.ModelAdmin):
         "discount_price",
         "currency",
         "is_published",
+        "pdf_password",
         "publication_date",
     )
     list_filter = ("is_published", "file_format", "language")

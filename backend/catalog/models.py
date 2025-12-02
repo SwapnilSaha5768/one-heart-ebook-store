@@ -1,3 +1,5 @@
+# backend/catalog/models.py
+
 from django.db import models
 from django.utils.text import slugify
 from .validators import validate_ebook_file_extension, validate_ebook_file_size
@@ -19,7 +21,7 @@ class Category(TimeStampedModel):
     parent = models.ForeignKey(
         'self',
         on_delete=models.SET_NULL,
-        related_name='children',
+        related_name='children',    
         null=True,
         blank=True
     )
@@ -67,6 +69,13 @@ class Book(TimeStampedModel):
         blank=True,
         null=True,
     )
+
+    pdf_password = models.CharField(
+        max_length=64,
+        blank=True,
+        help_text="Password to open the protected PDF (optional).",
+    )
+    
     authors = models.ManyToManyField(Author, related_name='books')
     categories = models.ManyToManyField(Category, related_name='books', blank=True)
     tags = models.ManyToManyField(Tag, related_name='books', blank=True)
