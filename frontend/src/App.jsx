@@ -16,6 +16,8 @@ import BookDetails from "./pages/BookDetails";
 import BooksPage from "./pages/BooksPage";
 import Footer from "./components/Footer";
 import VerifyEmail from "./pages/VerifyEmail";
+import AboutUs from "./pages/AboutUs";
+import ContactUs from "./pages/ContactUs";
 
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
@@ -45,9 +47,11 @@ function App() {
             <Route path="/books" element={<BooksPage />} />
             <Route path="/books/:slug" element={<BookDetails />} />
             <Route path="/verify-email" element={<VerifyEmail />} />
-            
+
             <Route path="/forgot-password" element={<ForgotPassword />} />
-            <Route path="/reset-password" element={<ResetPassword />} /> 
+            <Route path="/reset-password" element={<ResetPassword />} />
+            <Route path="/about" element={<AboutUs />} />
+            <Route path="/contact" element={<ContactUs />} />
 
           </Routes>
         </main>

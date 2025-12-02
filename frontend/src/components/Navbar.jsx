@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../features/auth/authSlice";
 import { ShoppingBasket, Search, User, Menu, X, LogOut } from "lucide-react";
 import { useState } from "react";
-import logo from "../assets/EbookLogo.jpg";
+import logo from "../assets/EbookLogo.png";
 
 export default function Navbar() {
   const { isAuthenticated, user } = useSelector((state) => state.auth);
@@ -29,7 +29,7 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2 group">
-          <div className="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center group-hover:border-brand-red transition-colors overflow-hidden">
+          <div className="w-10 h-10 rounded-full border border-red-500 flex items-center justify-center transition-colors overflow-hidden">
             <img src={logo} alt="OneHeart Logo" className="w-full h-full object-cover" />
           </div>
         </Link>
@@ -48,7 +48,7 @@ export default function Navbar() {
         </div>
 
         <div className="flex items-center gap-4 md:gap-4">
-          <Link to="/cart" className="relative text-brand-red hover:text-red-700 transition-colors">
+          <Link to="/cart" className="w-10 h-10 rounded-full border border-gray-200 bg-brand-red text-white flex items-center justify-center group-hover:border-brand-red transition-colors relative text-brand-red">
             <ShoppingBasket size={24} />
             {itemCount > 0 && (
               <span className="absolute -top-2 -right-2 bg-brand-red text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
@@ -59,12 +59,14 @@ export default function Navbar() {
 
           {isAuthenticated && (
             <div className="hidden md:flex items-center gap-4">
-              <Link to="/profile" className="text-gray-600 hover:text-brand-red transition-colors" title="Profile">
-                <User size={24} />
+              <Link to="/profile" className="flex items-center gap-2 group">
+                <div className="w-10 h-10 rounded-full border border-gray-200 bg-brand-red text-white flex items-center justify-center group-hover:border-brand-red transition-colors overflow-hidden">
+                  <User size={24} />
+                </div>
               </Link>
               <button
                 onClick={handleLogout}
-                className="text-brand-red hover:text-red-700 transition-colors"
+                className="w-10 h-10 rounded-full border border-gray-200 bg-brand-red text-white flex items-center justify-center group-hover:border-brand-red transition-colors overflow-hidden"
                 title="Logout"
               >
                 <LogOut size={24} />

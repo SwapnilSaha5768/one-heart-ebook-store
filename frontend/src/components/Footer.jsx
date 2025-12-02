@@ -1,10 +1,13 @@
-import { Facebook, Twitter, Instagram, Linkedin, Mail, Phone, MapPin } from "lucide-react";
+import { Facebook, Linkedin, Mail, Phone, MapPin, Youtube } from "lucide-react";
 import { Link } from "react-router-dom";
 
 export default function Footer() {
     return (
-        <footer className="bg-gray-900 text-white pt-16 pb-8">
-            <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-4 gap-12 mb-12">
+        <footer className="bg-[var(--color-brand-dark)] text-white pt-16 pb-8 relative overflow-hidden">
+            {/* Decorative Background Elements */}
+            <div className="absolute top-0 left-0 w-96 h-96 bg-[var(--color-brand-red)]/10 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
+            <div className="absolute bottom-0 right-0 w-96 h-96 bg-[var(--color-brand-red)]/10 rounded-full blur-3xl translate-x-1/2 translate-y-1/2 pointer-events-none"></div>
+            <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-4 gap-12 mb-12 relative z-10">
                 {/* Brand */}
                 <div className="space-y-4">
                     <div className="flex items-center gap-2">
@@ -17,10 +20,10 @@ export default function Footer() {
                         Empowering minds through the joy of reading. Discover your next favorite book with us.
                     </p>
                     <div className="flex gap-4 pt-2">
-                        <a href="#" className="text-gray-400 hover:text-white transition-colors"><Facebook size={20} /></a>
-                        <a href="#" className="text-gray-400 hover:text-white transition-colors"><Twitter size={20} /></a>
-                        <a href="#" className="text-gray-400 hover:text-white transition-colors"><Instagram size={20} /></a>
-                        <a href="#" className="text-gray-400 hover:text-white transition-colors"><Linkedin size={20} /></a>
+                        <a href="https://www.facebook.com/profile.php?id=61567033232293" className="text-gray-400 hover:text-white transition-colors"><Facebook size={20} /></a>
+                        <a href="https://www.youtube.com/@OneHeart-BD" className="text-gray-400 hover:text-white transition-colors"><Youtube size={20} /></a>
+                        <a href="https://wa.me/8801751451330" className="text-gray-400 hover:text-white transition-colors"><Phone size={20} /></a>
+                        {/*<a href="#" className="text-gray-400 hover:text-white transition-colors"><Linkedin size={20} /></a> */}
                     </div>
                 </div>
 
@@ -54,22 +57,23 @@ export default function Footer() {
                     <ul className="space-y-4 text-gray-400 text-sm">
                         <li className="flex items-start gap-3">
                             <MapPin size={18} className="mt-1 text-brand-red" />
-                            <span>123 Book Street, Knowledge City, Dhaka, Bangladesh</span>
+                            <span>Road 1, Bonolota Banijjik Area, Sopura, Rajshahi, Bangladesh</span>
                         </li>
                         <li className="flex items-center gap-3">
                             <Phone size={18} className="text-brand-red" />
-                            <span>+880 1234 567890</span>
+                            <span>+8801751451330</span>
                         </li>
                         <li className="flex items-center gap-3">
                             <Mail size={18} className="text-brand-red" />
-                            <span>support@oneheartebooks.com</span>
+                            <span>contact@oneheartbd.com</span>
                         </li>
                     </ul>
                 </div>
             </div>
 
-            <div className="border-t border-gray-800 pt-8 text-center text-gray-500 text-sm">
-                <p>&copy; {new Date().getFullYear()} OneHeart Ebooks. All rights reserved.</p>
+            <div className="border-t border-gray-800 pt-8 text-center text-gray-500 text-sm relative z-10">
+                <p>&copy; {new Date().getFullYear()} OneHeartBd. All rights reserved.</p>
+                <p className="text-xs">Designed and Developed by <a href="https://alvee3120.github.io">Alvee</a> & <a href="https://swapnil-saha.vercel.app">Swapnil</a></p>
             </div>
         </footer>
     );

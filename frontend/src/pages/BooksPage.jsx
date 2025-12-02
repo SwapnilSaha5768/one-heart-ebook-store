@@ -2,7 +2,7 @@ import { useEffect, useState, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loadBooks } from "../features/books/booksSlice";
 
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Search, Filter, Star, ShoppingCart, ChevronDown, BookOpen, X, Clock, Tag } from "lucide-react";
 import { addToCart } from "../features/cart/cartSlice";
 import axios from "axios";
@@ -11,6 +11,7 @@ import BookDetailsPanel from "../components/BookDetails";
 export default function BooksPage() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const location = useLocation();
     const { items: books, loading, error } = useSelector((state) => state.books);
 
     const [searchTerm, setSearchTerm] = useState("");
@@ -25,6 +26,17 @@ export default function BooksPage() {
     useEffect(() => {
         dispatch(loadBooks());
     }, [dispatch]);
+
+    // Handle URL query parameters for category
+    useEffect(() => {
+        const searchParams = new URLSearchParams(location.search);
+        const categoryParam = searchParams.get("category");
+        if (categoryParam) {
+            setSelectedCategory(categoryParam);
+        } else {
+            setSelectedCategory("All");
+        }
+    }, [location.search]);
 
     // Extract unique categories
     const categories = useMemo(() => {
@@ -42,7 +54,8 @@ export default function BooksPage() {
                     book.authors?.some(a => a.name.toLowerCase().includes(searchTerm.toLowerCase()));
 
                 const bookCategories = book.categories?.map(c => c.name) || [];
-                const matchesCategory = selectedCategory === "All" || bookCategories.includes(selectedCategory);
+                const matchesCategory = selectedCategory === "All" ||
+                    bookCategories.some(c => c.toLowerCase() === selectedCategory.toLowerCase());
 
                 const matchesPrice = (book.price || 0) >= priceRange[0] && (book.price || 0) <= priceRange[1];
                 return matchesSearch && matchesCategory && matchesPrice;
@@ -127,18 +140,18 @@ export default function BooksPage() {
                             <div className="space-y-2">
                                 {categories.map(cat => (
                                     <label key={cat} className="flex items-center gap-2 cursor-pointer group">
-                                        <div className={`w-4 h-4 rounded-full border flex items-center justify-center ${selectedCategory === cat ? 'border-brand-red' : 'border-gray-300 group-hover:border-brand-red'}`}>
-                                            {selectedCategory === cat && <div className="w-2 h-2 rounded-full bg-brand-red" />}
+                                        <div className={`w-4 h-4 rounded-full border flex items-center justify-center ${selectedCategory.toLowerCase() === cat.toLowerCase() ? 'border-brand-red' : 'border-gray-300 group-hover:border-brand-red'}`}>
+                                            {selectedCategory.toLowerCase() === cat.toLowerCase() && <div className="w-2 h-2 rounded-full bg-brand-red" />}
                                         </div>
                                         <input
                                             type="radio"
                                             name="category"
                                             value={cat}
-                                            checked={selectedCategory === cat}
+                                            checked={selectedCategory.toLowerCase() === cat.toLowerCase()}
                                             onChange={() => setSelectedCategory(cat)}
                                             className="hidden"
                                         />
-                                        <span className={`text-sm ${selectedCategory === cat ? 'text-brand-red font-medium' : 'text-gray-600 group-hover:text-gray-900'}`}>
+                                        <span className={`text-sm ${selectedCategory.toLowerCase() === cat.toLowerCase() ? 'text-brand-red font-medium' : 'text-gray-600 group-hover:text-gray-900'}`}>
                                             {cat}
                                         </span>
                                     </label>

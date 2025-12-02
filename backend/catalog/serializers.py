@@ -27,6 +27,7 @@ class TagSerializer(serializers.ModelSerializer):
 class BookListSerializer(serializers.ModelSerializer):
     authors = AuthorSerializer(many=True, read_only=True)
     categories = CategorySerializer(many=True, read_only=True)
+    tags = TagSerializer(many=True, read_only=True)
     effective_price = serializers.DecimalField(
         max_digits=10, decimal_places=2, read_only=True
     )
@@ -46,6 +47,7 @@ class BookListSerializer(serializers.ModelSerializer):
             'currency',
             'authors',
             'categories',
+            'tags',
             'is_published',
             'average_rating',
             'reviews_count',

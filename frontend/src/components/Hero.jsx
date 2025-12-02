@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import heroImage from "../assets/bookHeroImage.png";
 
 export default function Hero() {
     return (
@@ -26,12 +27,9 @@ export default function Hero() {
                     </div>
                 </div>
 
-                {/* Right Content - Images */}
                 <div className="relative flex justify-center lg:justify-end order-1 lg:order-2">
-                    {/* Placeholder for Hero Image */}
-                    <div className="relative w-full max-w-md aspect-[4/3] bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden shadow-xl">
-                        <span className="text-gray-400 font-medium">Hero Image Placeholder</span>
-                        {/* If you have the image, use: <img src="/path/to/hero-image.png" alt="Hero" className="object-cover w-full h-full" /> */}
+                    <div className="relative w-full max-w-xl rounded-lg flex items-center justify-center ">
+                        <img src={heroImage}/>
                     </div>
 
                     {/* Floating elements can be added here */}
