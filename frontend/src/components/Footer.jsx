@@ -1,5 +1,6 @@
 import { Facebook, Linkedin, Mail, Phone, MapPin, Youtube } from "lucide-react";
 import { Link } from "react-router-dom";
+import ebookimg from "../assets/EbookLogo.jpg";
 
 export default function Footer() {
     return (
@@ -11,10 +12,10 @@ export default function Footer() {
                 {/* Brand */}
                 <div className="space-y-4">
                     <div className="flex items-center gap-2">
-                        <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center">
-                            <span className="text-[10px] font-bold text-center leading-tight text-green-600">One<br /><span className="text-red-500">Heart</span></span>
+                        <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center overflow-hidden">
+                            <img src={ebookimg} alt="" />
                         </div>
-                        <span className="text-xl font-bold font-serif">OneHeart Ebooks</span>
+                        <span className="text-xl font-bold font-serif">OneHeartBd</span>
                     </div>
                     <p className="text-gray-400 text-sm leading-relaxed">
                         Empowering minds through the joy of reading. Discover your next favorite book with us.

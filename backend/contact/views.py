@@ -41,18 +41,17 @@ class ContactView(APIView):
 
         # Build email context
         ctx = {
-            "first_name": data.get("first_name"),
-            "last_name": data.get("last_name", ""),
-            "email": data.get("email"),
-            "subject": data.get("subject", "General Inquiry"),
-            "message": data.get("message"),
-            "ip_address": self.get_client_ip(request) or "unknown",
-            "user_agent": request.META.get("HTTP_USER_AGENT", "") or "",
-            "year": getattr(settings, "YEAR", None) or __import__("datetime").datetime.now().year,
-            # logo_url: prefer SITE_URL/static path if available; otherwise fall back to a hosted logo
-            "logo_url": getattr(settings, "SITE_URL", "").rstrip("/") + "/static/logo.png"
-                        if getattr(settings, "SITE_URL", None) else getattr(settings, "EMAIL_LOGO_URL", ""),
-        }
+    "first_name": data.get("first_name"),
+    "last_name": data.get("last_name", ""),
+    "email": data.get("email"),
+    "subject": data.get("subject", "General Inquiry"),
+    "message": data.get("message"),
+    "year": __import__("datetime").datetime.now().year,
+
+    # always use .env GOOGLE DRIVE URL
+    "logo_url": getattr(settings, "EMAIL_LOGO_URL", "")
+}
+
 
         # if SITE_URL not set or logo missing, you can set EMAIL_LOGO_URL in .env / settings
         if not ctx["logo_url"]:
@@ -71,13 +70,11 @@ class ContactView(APIView):
             "",
             "Message:",
             ctx["message"],
-            "",
-            f"IP: {ctx['ip_address']}",
-            f"User-Agent: {ctx['user_agent']}",
+            
         ]
         text_body = "\n".join(text_lines)
 
-        subject = f"[Website Contact] {ctx['subject']}"
+        subject = f"{ctx['subject']}"
         from_email = getattr(settings, "DEFAULT_FROM_EMAIL")
         to_email = [getattr(settings, "SUPPORT_EMAIL", from_email)]
 
