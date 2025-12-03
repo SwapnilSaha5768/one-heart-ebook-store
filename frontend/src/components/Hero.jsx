@@ -5,10 +5,8 @@ export default function Hero() {
     return (
         <section className="relative bg-white overflow-hidden">
             <div className="max-w-7xl mx-auto px-6 py-12 lg:py-20 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                {/* Left Content */}
                 <div className="space-y-6 z-10 order-2 lg:order-1">
                     <div className="relative inline-block">
-                        {/* Decorative element if needed */}
                     </div>
                     <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold font-serif text-brand-dark leading-tight">
                         Boost Your Skills <br />
@@ -20,9 +18,15 @@ export default function Hero() {
                     <div className="pt-4">
                         <Link
                             to="/books"
-                            className="inline-block bg-brand-red text-white font-semibold px-8 py-3 rounded-md shadow-lg hover:bg-red-600 transition-colors uppercase tracking-wide"
+                            className="inline-block bg-brand-red text-white font-semibold px-8 py-3 mr-4 rounded-md shadow-lg hover:bg-red-600 transition-colors uppercase tracking-wide"
                         >
                             Explore
+                        </Link>
+                        <Link
+                            to="/contact"
+                            className="inline-block bg-brand-red text-white font-semibold px-8 py-3 rounded-md shadow-lg hover:bg-red-600 transition-colors uppercase tracking-wide"
+                        >
+                            Contact Us
                         </Link>
                     </div>
                 </div>

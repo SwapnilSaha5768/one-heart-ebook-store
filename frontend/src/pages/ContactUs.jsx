@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axiosClient from "../api/axiosClient";
-import { Mail, Phone, MapPin, Send, ChevronDown, ChevronUp, Facebook, Youtube } from "lucide-react";
+import { Mail, Phone, MapPin, Send, Facebook, Youtube } from "lucide-react";
 
 const ContactUs = () => {
   const [form, setForm] = useState({
@@ -13,34 +13,7 @@ const ContactUs = () => {
   const [loading, setLoading] = useState(false);
   const [successMsg, setSuccessMsg] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
-  const [activeAccordion, setActiveAccordion] = useState(null);
 
-  const faqs = [
-    {
-      question: "How do I download my ebooks?",
-      answer:
-        "Once your purchase is complete, you can instantly download your ebooks from your 'Library' section in your profile. We also send a download link to your registered email address.",
-    },
-    {
-      question: "What formats are the ebooks available in?",
-      answer:
-        "Most of our ebooks are available in PDF, EPUB, and MOBI formats, ensuring compatibility with all major e-readers, tablets, and smartphones.",
-    },
-    {
-      question: "Can I refund a purchase?",
-      answer:
-        "We offer a 7-day money-back guarantee if you're not satisfied with your purchase or if there are technical issues with the file. Please contact our support team for assistance.",
-    },
-    {
-      question: "Do you offer coupon cards?",
-      answer:
-        "Yes! You can purchase digital coupon cards of various denominations from our store. They make the perfect gift for the book lovers in your life.",
-    },
-  ];
-
-  const toggleAccordion = (index) => {
-    setActiveAccordion(activeAccordion === index ? null : index);
-  };
 
   const handleChange = (e) => {
     setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
@@ -266,44 +239,7 @@ const ContactUs = () => {
         </div>
       </section>
 
-      {/* FAQ Section */}
-      <section className="py-20 px-6 md:px-12 lg:px-24 bg-white">
-        <div className="max-w-3xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-serif font-bold mb-4">Frequently Asked Questions</h2>
-            <p className="text-gray-600">Find quick answers to common questions about our store.</p>
-          </div>
 
-          <div className="space-y-4">
-            {faqs.map((faq, index) => (
-              <div
-                key={index}
-                className={`border border-gray-200 rounded-2xl overflow-hidden transition-all duration-300 ${activeAccordion === index ? "bg-[var(--color-brand-bg)] border-[var(--color-brand-red)]/20 shadow-sm" : "hover:border-gray-300"
-                  }`}
-              >
-                <button
-                  className="w-full px-6 py-5 flex items-center justify-between text-left focus:outline-none"
-                  onClick={() => toggleAccordion(index)}
-                >
-                  <span className={`font-medium text-lg ${activeAccordion === index ? "text-[var(--color-brand-red)]" : "text-[var(--color-brand-dark)]"}`}>
-                    {faq.question}
-                  </span>
-                  {activeAccordion === index ? (
-                    <ChevronUp size={20} className="text-[var(--color-brand-red)]" />
-                  ) : (
-                    <ChevronDown size={20} className="text-gray-400" />
-                  )}
-                </button>
-                <div
-                  className={`px-6 overflow-hidden transition-all duration-300 ease-in-out ${activeAccordion === index ? "max-h-40 pb-6 opacity-100" : "max-h-0 opacity-0"}`}
-                >
-                  <p className="text-gray-600 leading-relaxed">{faq.answer}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
     </div>
   );
 };

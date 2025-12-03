@@ -18,6 +18,7 @@ import Footer from "./components/Footer";
 import VerifyEmail from "./pages/VerifyEmail";
 import AboutUs from "./pages/AboutUs";
 import ContactUs from "./pages/ContactUs";
+import FAQ from "./pages/FAQ";
 
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
@@ -52,6 +53,7 @@ function App() {
             <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/about" element={<AboutUs />} />
             <Route path="/contact" element={<ContactUs />} />
+            <Route path="/faq" element={<FAQ />} />
 
           </Routes>
         </main>
