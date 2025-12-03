@@ -100,9 +100,21 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # ============================
 # Database
 # ============================
-DATABASES = {
-    'default': env.db("DATABASE_URL", default=f"postgres://{env('DB_USER')}:{env('DB_PASSWORD')}@{env('DB_HOST')}:{env('DB_PORT')}/{env('DB_NAME')}")
-}
+if env("DATABASE_URL", default=None):
+    DATABASES = {
+        'default': env.db("DATABASE_URL")
+    }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': env("DB_NAME"),
+            'USER': env("DB_USER"),
+            'PASSWORD': env("DB_PASSWORD"),
+            'HOST': env("DB_HOST"),
+            'PORT': env("DB_PORT"),
+        }
+    }
 
 # ============================
 # Django REST Framework
