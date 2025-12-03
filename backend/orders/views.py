@@ -9,7 +9,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from .models import Cart, CartItem, Order, OrderItem
-from .serializers import CartSerializer, CartItemAddSerializer, OrderSerializer
+from .serializers import CartSerializer, CartItemAddSerializer, OrderSerializer, AdminOrderSerializer
 from accounts.models import Address
 from payments.models import Payment
 from coupons.models import Coupon, CouponRedemption
@@ -314,3 +314,28 @@ class OrderDetailView(generics.RetrieveAPIView):
 
     def get_queryset(self):
         return Order.objects.filter(user=self.request.user)
+
+
+class AdminOrderListView(generics.ListAPIView):
+    """
+    GET /api/orders/admin/
+    -> list ALL orders (admin only)
+    """
+    serializer_class = OrderSerializer
+    permission_classes = [permissions.IsAdminUser]
+
+    def get_queryset(self):
+        return Order.objects.all().order_by("-created_at")
+
+
+class AdminOrderDetailView(generics.RetrieveUpdateDestroyAPIView):
+    """
+    GET /api/orders/admin/<pk>/
+    PATCH /api/orders/admin/<pk>/  -> update status
+    DELETE /api/orders/admin/<pk>/
+    """
+    serializer_class = AdminOrderSerializer
+    permission_classes = [permissions.IsAdminUser]
+    queryset = Order.objects.all()
+
+

@@ -48,3 +48,11 @@ class PostDetailSerializer(serializers.ModelSerializer):
             full = f"{obj.author.first_name} {obj.author.last_name}".strip()
             return full or obj.author.username
         return None
+
+
+class AdminPostSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Post
+        fields = '__all__'
+        read_only_fields = ['author', 'created_at', 'updated_at']
+

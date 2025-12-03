@@ -3,7 +3,7 @@ from rest_framework import viewsets, permissions
 from rest_framework.response import Response
 
 from .models import Post
-from .serializers import PostListSerializer, PostDetailSerializer
+from .serializers import PostListSerializer, PostDetailSerializer, AdminPostSerializer
 
 
 class IsAdminOrReadOnly(permissions.BasePermission):
@@ -35,6 +35,8 @@ class PostViewSet(viewsets.ModelViewSet):
         return qs
 
     def get_serializer_class(self):
+        if self.request.user.is_staff:
+            return AdminPostSerializer
         if self.action == "list":
             return PostListSerializer
         return PostDetailSerializer

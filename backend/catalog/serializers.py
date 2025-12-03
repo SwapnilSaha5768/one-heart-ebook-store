@@ -91,3 +91,14 @@ class BookDetailSerializer(serializers.ModelSerializer):
             'average_rating',
             'reviews_count',
         ]
+
+
+class AdminBookSerializer(serializers.ModelSerializer):
+    authors = serializers.PrimaryKeyRelatedField(many=True, queryset=Author.objects.all())
+    categories = serializers.PrimaryKeyRelatedField(many=True, queryset=Category.objects.all())
+    tags = serializers.PrimaryKeyRelatedField(many=True, queryset=Tag.objects.all())
+
+    class Meta:
+        model = Book
+        fields = '__all__'
+

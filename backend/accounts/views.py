@@ -424,3 +424,14 @@ class AddressDetailView(generics.RetrieveUpdateDestroyAPIView):
         # If this one is now default, unset others
         if address.is_default:
             Address.objects.filter(user=self.request.user).exclude(pk=address.pk).update(is_default=False)
+
+
+class AdminUserListView(generics.ListAPIView):
+    """
+    GET /api/auth/users/
+    -> list ALL users (admin only)
+    """
+    queryset = User.objects.all().order_by("-date_joined")
+    serializer_class = UserSerializer
+    permission_classes = [permissions.IsAdminUser]
+

@@ -92,3 +92,16 @@ class OrderSerializer(serializers.ModelSerializer):
             'created_at',
             'updated_at',
         ]
+
+
+class AdminOrderSerializer(OrderSerializer):
+    class Meta(OrderSerializer.Meta):
+        read_only_fields = [
+            'order_number',
+            # 'status',  <-- Removed from read_only
+            'user',
+            'paid_at',
+            'created_at',
+            'updated_at',
+        ]
+

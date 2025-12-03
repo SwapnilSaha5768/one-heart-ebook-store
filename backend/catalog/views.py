@@ -11,25 +11,33 @@ from .serializers import (
     TagSerializer,
     BookListSerializer,
     BookDetailSerializer,
+    AdminBookSerializer,
 )
 
 
-class AuthorViewSet(viewsets.ReadOnlyModelViewSet):
+class IsAdminOrReadOnly(permissions.BasePermission):
+    def has_permission(self, request, view):
+        if request.method in permissions.SAFE_METHODS:
+            return True
+        return bool(request.user and request.user.is_staff)
+
+
+class AuthorViewSet(viewsets.ModelViewSet):
     queryset = Author.objects.all()
     serializer_class = AuthorSerializer
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [IsAdminOrReadOnly]
 
 
-class CategoryViewSet(viewsets.ReadOnlyModelViewSet):
+class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [IsAdminOrReadOnly]
 
 
-class TagViewSet(viewsets.ReadOnlyModelViewSet):
+class TagViewSet(viewsets.ModelViewSet):
     queryset = Tag.objects.all()
     serializer_class = TagSerializer
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [IsAdminOrReadOnly]
 
 
 class BookViewSet(viewsets.ReadOnlyModelViewSet):
@@ -62,3 +70,13 @@ class BookViewSet(viewsets.ReadOnlyModelViewSet):
         if self.action == "retrieve":
             return BookDetailSerializer
         return BookListSerializer
+
+
+class AdminBookViewSet(viewsets.ModelViewSet):
+    """
+    CRUD for Books (Admin only)
+    """
+    queryset = Book.objects.all().order_by("-created_at")
+    serializer_class = AdminBookSerializer
+    permission_classes = [permissions.IsAdminUser]
+

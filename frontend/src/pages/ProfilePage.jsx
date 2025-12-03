@@ -8,7 +8,7 @@ import {
   updateAddress,
   deleteAddress,
 } from "../api/addressesApi";
-import { User, MapPin, Package, Settings, LogOut, Plus, Edit2, Trash2, CheckCircle, AlertCircle, ShoppingBag, Calendar, ChevronRight } from "lucide-react";
+import { User, MapPin, Package, Settings, LogOut, Plus, Edit2, Trash2, CheckCircle, AlertCircle, ShoppingBag, Calendar, ChevronRight, LayoutDashboard } from "lucide-react";
 import { useDispatch } from "react-redux";
 import { logout } from "../features/auth/authSlice";
 import { useNavigate } from "react-router-dom";
@@ -18,7 +18,7 @@ function ProfilePage() {
   const navigate = useNavigate();
 
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState("profile"); 
+  const [activeTab, setActiveTab] = useState("profile");
 
   const [savingProfile, setSavingProfile] = useState(false);
   const [savingAddress, setSavingAddress] = useState(false);
@@ -268,6 +268,15 @@ function ProfilePage() {
                 <SidebarItem id="profile" icon={User} label="Profile" />
                 <SidebarItem id="addresses" icon={MapPin} label="Addresses" />
                 <SidebarItem id="orders" icon={Package} label="My Orders" />
+                {(user?.is_staff || user?.is_superuser) && (
+                  <button
+                    onClick={() => navigate("/admin")}
+                    className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-gray-600 hover:bg-red-50 hover:text-brand-red transition-all duration-200"
+                  >
+                    <LayoutDashboard size={20} />
+                    <span className="font-medium">Admin Panel</span>
+                  </button>
+                )}
                 <SidebarItem id="settings" icon={Settings} label="Settings" />
               </nav>
 

@@ -7,6 +7,8 @@ from .views import (
     CheckoutView,
     OrderListView,
     OrderDetailView,
+    AdminOrderListView,
+    AdminOrderDetailView,
 )
 
 urlpatterns = [
@@ -17,5 +19,7 @@ urlpatterns = [
     path('checkout/', CheckoutView.as_view(), name='checkout'),
 
     path('orders/', OrderListView.as_view(), name='order-list'),
+    path('orders/admin/', AdminOrderListView.as_view(), name='admin-order-list'),
+    path('orders/admin/<int:pk>/', AdminOrderDetailView.as_view(), name='admin-order-detail'),
     path('orders/<int:pk>/', OrderDetailView.as_view(), name='order-detail'),
 ]
