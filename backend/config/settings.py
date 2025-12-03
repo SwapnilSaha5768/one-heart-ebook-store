@@ -61,6 +61,7 @@ INSTALLED_APPS = [
 # ============================
 # Middleware
 # ============================
+MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',  # Add Whitenoise
@@ -70,6 +71,7 @@ INSTALLED_APPS = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
 
 CORS_ALLOW_CREDENTIALS = True
 
