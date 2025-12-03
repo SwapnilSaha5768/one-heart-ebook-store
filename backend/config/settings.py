@@ -181,11 +181,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # ============================
 # CORS
 # ============================
-CORS_ALLOW_ALL_ORIGINS = False
-CORS_ALLOW_HEADERS = ["*"]
-CORS_ALLOW_METHODS = ["*"]
-
-CORS_ALLOWED_ORIGINS = env("CORS_ALLOWED_ORIGINS").split(",")
+CORS_ALLOWED_ORIGINS_ENV = env("CORS_ALLOWED_ORIGINS", default="")
+if CORS_ALLOWED_ORIGINS_ENV == "*":
+    CORS_ALLOW_ALL_ORIGINS = True
+else:
+    CORS_ALLOW_ALL_ORIGINS = False
+    CORS_ALLOWED_ORIGINS = CORS_ALLOWED_ORIGINS_ENV.split(",")
 
 # ============================
 # Email (Brevo SMTP)
