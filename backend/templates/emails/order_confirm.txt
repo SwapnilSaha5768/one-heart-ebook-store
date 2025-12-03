@@ -1,0 +1,14 @@
+Assalamu Alaikum {{ user.first_name|default:user.username }},
+
+Your payment for order #{{ order.order_number }} has been confirmed.
+
+Books:
+{% for item in items %}
+- {{ item.book.title }} x{{ item.quantity }}
+  PDF password: {% if item.book.pdf_password %}{{ item.book.pdf_password }}{% else %}(no password){% endif %}
+{% endfor %}
+
+You can download your books from: {{ site_url }}/library
+
+Thank you,
+OneHeart eBook Team

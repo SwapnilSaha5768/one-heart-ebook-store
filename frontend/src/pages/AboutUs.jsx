@@ -12,7 +12,7 @@ const AboutUs = () => {
             <span className="text-sm font-medium tracking-wide uppercase">Our Essence</span>
           </div>
           <h1 className="text-5xl md:text-7xl font-serif font-bold mb-6 leading-tight">
-            Connecting Hearts <br /> Through <span className="text-[var(--color-brand-red)]">Stories</span>
+            Connecting <span className="text-[var(--color-brand-red)]">Hearts</span> <br /> Through <span className="text-[var(--color-brand-red)]">Stories</span>
           </h1>
           <p className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto font-light leading-relaxed">
             OneHeart is more than just an ebook store. We are a community dedicated to bringing the world's most touching, inspiring, and transformative stories to your fingertips.

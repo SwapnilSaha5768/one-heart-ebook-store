@@ -1,50 +1,64 @@
 # backend/orders/emails.py
-
 from django.core.mail import send_mail
 from django.conf import settings
+from django.template.loader import render_to_string
 
 def send_payment_confirmed_email(order):
     """
-    Send an email to the user when payment is confirmed.
-    Includes book titles and their pdf passwords (if set).
+    Send an HTML email to the buyer with book credentials.
     """
     user = order.user
-    email = user.email
+    to_email = user.email
+    items = list(order.items.select_related("book").all())
 
-    # Build a list of lines with book credentials
-    lines = []
-    for item in order.items.select_related("book"):
-        book = item.book
-        # only mention password for PDFs (optional)
-        if book.pdf_password:
-            lines.append(
-                f"Book Title: {book.title}\n"
-                f"PDF password: {book.pdf_password}\n"
-            )
-        else:
-            lines.append(
-                f"Book Title: {book.title}\n"
-                f"PDF password: (no password set)\n"
-            )
+    context = {
+        "user": user,
+        "order": order,
+        "items": items,
+        "site_url": getattr(settings, "SITE_URL", "").rstrip("/") or "",
+        "logo_url": getattr(settings, "EMAIL_LOGO_URL", ""),
+        "year": getattr(settings, "YEAR", None) or __import__("datetime").datetime.now().year,
+    }
 
-    books_block = "\n".join(lines) if lines else "No books found for this order."
+    subject = f"Payment Confirmed — Order #{order.order_number}"
 
-    subject = "Payment Confirmed – Your OneHeart eBook Credentials"
-
-    message = (
-        f"Assalamu Alaikum {user.first_name or user.username},\n\n"
-        f"Your payment for order #{order.order_number} has been confirmed.\n\n"
-        f"Here are your book credentials:\n\n"
-        f"{books_block}\n"
-        f"You can now download your books from your library.\n\n"
-        f"Thank you for purchasing from OneHeart eBook!\n"
-        f"- OneHeart eBook Team"
-    )
+    html_message = render_to_string("emails/order_confirm.html", context)
+    plain_message = render_to_string("emails/order_confirm.txt", context)
 
     send_mail(
         subject=subject,
-        message=message,
+        message=plain_message,
         from_email=settings.DEFAULT_FROM_EMAIL,
-        recipient_list=[email],
+        recipient_list=[to_email],
+        html_message=html_message,
+        fail_silently=False,
+    )
+
+def send_order_notification_admin(order):
+    """
+    Send a notification email to the site admin / from address when an order is placed.
+    """
+    user = order.user
+    items = list(order.items.select_related("book").all())
+
+    context = {
+        "user": user,
+        "order": order,
+        "items": items,
+        "site_url": getattr(settings, "SITE_URL", "").rstrip("/") or "",
+    }
+
+    subject = f"New Order Placed — #{order.order_number}"
+    admin_email = settings.DEFAULT_FROM_EMAIL  # no-reply / admin
+
+    html_message = render_to_string("emails/order_notification_admin.html", context)
+    plain_message = render_to_string("emails/order_notification_admin.txt", context)
+
+    send_mail(
+        subject=subject,
+        message=plain_message,
+        from_email=admin_email,
+        recipient_list=[admin_email],
+        html_message=html_message,
         fail_silently=False,
     )

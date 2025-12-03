@@ -1,0 +1,12 @@
+<!doctype html><html><body>
+  <h2>New Order Placed — #{{ order.order_number }}</h2>
+  <p>User: {{ user.get_full_name|default:user.email }} ({{ user.email }})</p>
+  <p>Total: {{ order.total_amount }} {{ order.currency }}</p>
+  <h3>Items</h3>
+  <ul>
+  {% for item in items %}
+    <li>{{ item.book.title }} — Qty: {{ item.quantity }} — PDF password: {% if item.book.pdf_password %}{{ item.book.pdf_password }}{% else %}(no password){% endif %}</li>
+  {% endfor %}
+  </ul>
+  <p>View order in admin: {{ site_url }}/admin/orders/order/{{ order.id }}/change/</p>
+</body></html>

@@ -125,7 +125,7 @@ export default function BookCategories() {
                                             ? "scale-90 opacity-60 blur-[2px] grayscale-[30%] cursor-pointer"
                                             : "scale-100 opacity-100 shadow-xl z-10 bg-white rounded-xl")
                                         : "scale-100 opacity-100 shadow-md bg-white rounded-xl hover:shadow-lg"
-                                        } w-64 flex-shrink-0`}
+                                        } w-64 sm:w-72 flex-shrink-0`}
                                 >
                                     <div
                                         className="relative w-full aspect-[3/4] overflow-hidden rounded-t-lg cursor-pointer"

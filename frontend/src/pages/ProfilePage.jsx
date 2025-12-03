@@ -18,7 +18,7 @@ function ProfilePage() {
   const navigate = useNavigate();
 
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState("profile"); // profile, addresses, orders, settings
+  const [activeTab, setActiveTab] = useState("profile"); 
 
   const [savingProfile, setSavingProfile] = useState(false);
   const [savingAddress, setSavingAddress] = useState(false);
@@ -613,7 +613,8 @@ function ProfilePage() {
             {activeTab === "settings" && (
               <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
                 <h2 className="text-lg font-bold text-gray-900 mb-6">Account Settings</h2>
-                <div className="space-y-6">
+                <p> Coming Soon..</p>
+                {/* <div className="space-y-6">
                   <div className="flex items-center justify-between py-4 border-b border-gray-50">
                     <div>
                       <h4 className="font-medium text-gray-900">Email Notifications</h4>
@@ -627,7 +628,7 @@ function ProfilePage() {
                   <div className="pt-4">
                     <button className="text-red-500 font-medium text-sm hover:underline">Delete Account</button>
                   </div>
-                </div>
+                </div> */}
               </div>
             )}
 

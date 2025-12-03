@@ -1,4 +1,4 @@
-#backend/accounts/views.py
+# backend/accounts/views.py
 
 from django.contrib.auth import get_user_model
 from rest_framework import generics, permissions, status
@@ -9,8 +9,8 @@ from datetime import timedelta
 from django.utils import timezone
 from core.throttles import LoginThrottle
 from rest_framework.permissions import IsAuthenticated
+
 from .models import Profile, Address, EmailOTP, PasswordResetCode
-from django.core.mail import send_mail
 from django.conf import settings
 
 from .serializers import (
@@ -21,12 +21,27 @@ from .serializers import (
     MeSerializer,
     EmailOTPVerifySerializer,
     ResendEmailOTPSerializer,
-    ForgotPasswordRequestSerializer, 
+    ForgotPasswordRequestSerializer,
     ResetPasswordSerializer,
-
 )
 
+# Email helpers (create backend/accounts/emails.py if not present)
+from .emails import send_otp_email, send_password_reset_email
+
 User = get_user_model()
+
+
+def _get_client_ip(request):
+    """
+    Try to retrieve client's IP address from common headers.
+    """
+    xff = request.META.get("HTTP_X_FORWARDED_FOR")
+    if xff:
+        # X-Forwarded-For may contain many IPs, take the first
+        ip = xff.split(",")[0].strip()
+        if ip:
+            return ip
+    return request.META.get("REMOTE_ADDR") or "unknown"
 
 
 class ThrottledTokenObtainPairView(TokenObtainPairView):
@@ -54,14 +69,16 @@ class RegisterView(generics.CreateAPIView):
         message_detail = "We sent a verification code to your email. Please verify to activate your account."
 
         try:
-            send_mail(
-                subject="Your OneHeart eBook verification code",
-                message=f"Your verification code is: {code}\nThis code will expire in 10 minutes.",
-                from_email=settings.DEFAULT_FROM_EMAIL,
-                recipient_list=[user.email],
+            # send using helper which uses templates
+            send_otp_email(
+                user,
+                code,
+                expiry_minutes=10,
+                ip_address=_get_client_ip(request),
                 fail_silently=False,
             )
         except Exception as e:
+            # Keep behaviour: don't fail registration if email sending fails
             print(f"Error sending email: {e}")
             message_detail = "Account created, but we failed to send the verification email. Please try 'Resend OTP' later."
 
@@ -72,6 +89,7 @@ class RegisterView(generics.CreateAPIView):
             },
             status=status.HTTP_201_CREATED,
         )
+
 
 class VerifyEmailOTPView(APIView):
     """
@@ -124,6 +142,7 @@ class VerifyEmailOTPView(APIView):
             status=status.HTTP_200_OK,
         )
 
+
 class ResendEmailOTPView(APIView):
     """
     POST /api/auth/resend-otp/
@@ -156,19 +175,27 @@ class ResendEmailOTPView(APIView):
         code = EmailOTP.generate_code()
         EmailOTP.objects.create(user=user, code=code)
 
-        # Send email
-        send_mail(
-            subject="Your new OneHeart eBook verification code",
-            message=f"Your new verification code is: {code}\nThis code will expire in 10 minutes.",
-            from_email=settings.DEFAULT_FROM_EMAIL,
-            recipient_list=[user.email],
-            fail_silently=False,
-        )
+        # Send email via helper
+        try:
+            send_otp_email(
+                user,
+                code,
+                expiry_minutes=10,
+                ip_address=_get_client_ip(request),
+                fail_silently=False,
+            )
+        except Exception as e:
+            print(f"Error sending resend OTP email: {e}")
+            return Response(
+                {"detail": "Failed to send new verification code. Please try again later."},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )
 
         return Response(
             {"detail": "A new verification code has been sent to your email."},
             status=status.HTTP_200_OK,
         )
+
 
 class ForgotPasswordRequestView(APIView):
     """
@@ -202,18 +229,22 @@ class ForgotPasswordRequestView(APIView):
         code = PasswordResetCode.generate_code()
         PasswordResetCode.objects.create(user=user, code=code)
 
-        # Send email
-        send_mail(
-            subject="Your OneHeart eBook password reset code",
-            message=(
-                f"You requested to reset your password.\n"
-                f"Your password reset code is: {code}\n"
-                f"This code will expire in 10 minutes."
-            ),
-            from_email=settings.DEFAULT_FROM_EMAIL,
-            recipient_list=[user.email],
-            fail_silently=False,
-        )
+        # Send email via helper
+        try:
+            send_password_reset_email(
+                user,
+                code=code,
+                expiry_minutes=10,
+                ip_address=_get_client_ip(request),
+                fail_silently=False,
+            )
+        except Exception as e:
+            print(f"Error sending password reset email: {e}")
+            # do not reveal too much to client
+            return Response(
+                {"detail": "Failed to send reset email. Please try again later."},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )
 
         return Response(
             {
@@ -222,6 +253,7 @@ class ForgotPasswordRequestView(APIView):
             },
             status=status.HTTP_200_OK,
         )
+
 
 class ResetPasswordView(APIView):
     """
@@ -391,6 +423,4 @@ class AddressDetailView(generics.RetrieveUpdateDestroyAPIView):
 
         # If this one is now default, unset others
         if address.is_default:
-            Address.objects.filter(
-                user=self.request.user
-            ).exclude(pk=address.pk).update(is_default=False)
+            Address.objects.filter(user=self.request.user).exclude(pk=address.pk).update(is_default=False)

@@ -14,7 +14,7 @@ from accounts.models import Address
 from payments.models import Payment
 from coupons.models import Coupon, CouponRedemption
 from coupons.utils import calculate_coupon_discount
-
+from .emails import send_payment_confirmed_email, send_order_notification_admin
 
 def generate_order_number() -> str:
     """
@@ -135,7 +135,7 @@ class CartItemUpdateView(APIView):
 
 
 class CheckoutView(APIView):
-    
+
     permission_classes = [permissions.IsAuthenticated]
 
     def post(self, request, *args, **kwargs):
@@ -201,9 +201,8 @@ class CheckoutView(APIView):
 
             discount_amount = calculate_coupon_discount(coupon, total)
             total = max(Decimal('0.00'), total - discount_amount)
-        
 
-    
+
         # 5) create order (payment still pending)
         order = Order.objects.create(
             user=user,
@@ -216,7 +215,6 @@ class CheckoutView(APIView):
         )
 
         # 6) create order items + "pending" purchase items (not active yet)
-                # 6) create order items + "pending" purchase items (not active yet)
         for item in cart_items:
             order_item = OrderItem.objects.create(
                 order=order,
@@ -246,6 +244,14 @@ class CheckoutView(APIView):
 
         # 7) clear cart
         cart_items.delete()
+
+        # --- NEW: notify admin/no-reply that an order was placed ---
+        try:
+            send_order_notification_admin(order)
+        except Exception as e:
+            # don't fail the checkout if email sending fails; just log
+            print("Failed to send admin order notification:", e)
+        # ---------------------------------------------------------
 
         # 8) create payment record with status=INITIATED
         payment = Payment.objects.create(
@@ -280,6 +286,7 @@ class CheckoutView(APIView):
             'gateway_transaction_id': payment.gateway_transaction_id,
         }
         return Response(data, status=status.HTTP_201_CREATED)
+
       
 
 

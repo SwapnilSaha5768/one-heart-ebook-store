@@ -18,7 +18,7 @@ export default function MostSelling() {
                     Our Most Selling Books
                 </h2>
 
-                <div className="grid md:grid-cols-3 gap-8">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8">
                     {displayBooks.map((book) => (
                         <div key={book.id} className="group cursor-pointer" onClick={() => navigate(`/books/${book.slug}`)}>
                             <div className="bg-[#FDFBF7] rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow flex flex-col items-center text-center h-full border border-gray-100">

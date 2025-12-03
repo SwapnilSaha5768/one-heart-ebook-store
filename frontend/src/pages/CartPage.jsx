@@ -92,13 +92,13 @@ export default function CartPage() {
             ))}
           </div>
 
-          <div className="flex items-center justify-between mt-4">
-            <div className="text-lg font-semibold">
-              Total: {total.toFixed(2)} BDT
+          <div className="flex flex-col sm:flex-row items-center justify-between mt-6 gap-4 border-t border-gray-100 pt-6">
+            <div className="text-xl font-bold text-gray-900">
+              Total: <span className="text-brand-red">{total.toFixed(2)} BDT</span>
             </div>
             <button
               onClick={() => navigate("/checkout")}
-              className="bg-slate-900 text-white px-4 py-2 rounded text-sm hover:bg-slate-800"
+              className="w-full sm:w-auto bg-brand-red text-white px-8 py-3 rounded-lg font-bold shadow-lg hover:bg-red-700 transition-all transform hover:-translate-y-0.5"
             >
               Proceed to Checkout
             </button>

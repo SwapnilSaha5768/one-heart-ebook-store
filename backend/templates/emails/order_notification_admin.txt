@@ -1,0 +1,10 @@
+New order placed: #{{ order.order_number }}
+User: {{ user.get_full_name|default:user.email }} ({{ user.email }})
+Total: {{ order.total_amount }} {{ order.currency }}
+
+Items:
+{% for item in items %}
+- {{ item.book.title }} — Qty: {{ item.quantity }} — PDF password: {% if item.book.pdf_password %}{{ item.book.pdf_password }}{% else %}(no password){% endif %}
+{% endfor %}
+
+Admin link: {{ site_url }}/admin/orders/order/{{ order.id }}/change/
