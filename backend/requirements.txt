@@ -13,3 +13,4 @@ redis
 django-ratelimit
 django-filter
 django-environ
+gunicorn
