@@ -162,7 +162,7 @@ const AdminDashboard = () => {
             const data = new FormData();
 
             // Handle basic fields
-            const basicFields = ['title', 'slug', 'price', 'description', 'summary', 'content', 'is_published'];
+            const basicFields = ['title', 'slug', 'price', 'description', 'summary', 'content', 'is_published', 'pdf_password'];
             basicFields.forEach(field => {
                 if (formData[field] !== undefined && formData[field] !== null) {
                     data.append(field, formData[field]);
@@ -184,6 +184,9 @@ const AdminDashboard = () => {
             }
             if (formData.featured_image instanceof File) {
                 data.append('featured_image', formData.featured_image);
+            }
+            if (formData.file instanceof File) {
+                data.append('file', formData.file);
             }
 
             if (modalType === 'book') {
@@ -265,7 +268,6 @@ const AdminDashboard = () => {
                                 <SidebarItem id="books" icon={BookOpen} label="Books" />
                                 <SidebarItem id="blogs" icon={FileText} label="Blogs" />
                                 <SidebarItem id="users" icon={Users} label="Users" />
-                                <SidebarItem id="settings" icon={Settings} label="Settings" />
                             </nav>
                         </div>
                     </div>
@@ -556,6 +558,40 @@ const AdminDashboard = () => {
                           file:bg-brand-red file:text-white
                           hover:file:bg-red-600
                           cursor-pointer"
+                                            />
+                                        </div>
+
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-700 mb-1">Book PDF</label>
+                                            {editingItem && editingItem.file && (
+                                                <div className="mb-2 text-sm text-gray-500">
+                                                    Current File: <a href={editingItem.file} target="_blank" rel="noopener noreferrer" className="text-brand-red hover:underline">Download/View</a>
+                                                </div>
+                                            )}
+                                            <input
+                                                type="file"
+                                                name="file"
+                                                accept=".pdf"
+                                                onChange={handleInputChange}
+                                                className="w-full text-sm text-gray-500
+                                file:mr-4 file:py-2 file:px-4
+                                file:rounded-full file:border-0
+                                file:text-sm file:font-semibold
+                                file:bg-brand-red file:text-white
+                                hover:file:bg-red-600
+                                cursor-pointer"
+                                            />
+                                        </div>
+
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-700 mb-1">PDF Password (Optional)</label>
+                                            <input
+                                                type="text"
+                                                name="pdf_password"
+                                                value={formData.pdf_password || ''}
+                                                onChange={handleInputChange}
+                                                placeholder="Enter password if PDF is protected"
+                                                className="w-full px-4 py-2 border rounded-lg"
                                             />
                                         </div>
                                     </>

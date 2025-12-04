@@ -49,7 +49,6 @@ function App() {
             <Route path="/books" element={<BooksPage />} />
             <Route path="/books/:slug" element={<BookDetails />} />
             <Route path="/verify-email" element={<VerifyEmail />} />
-
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/about" element={<AboutUs />} />
