@@ -338,4 +338,38 @@ class AdminOrderDetailView(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [permissions.IsAdminUser]
     queryset = Order.objects.all()
 
+    def perform_update(self, serializer):
+        order = serializer.save()
+
+        if order.status == Order.Status.PAID:
+            from payments.models import Payment
+
+            payment, created = Payment.objects.get_or_create(
+                order=order,
+                defaults={
+                    "amount": order.total_amount,
+                    "currency": order.currency,
+                    "gateway": Payment.Gateway.OTHER,
+                    "status": Payment.Status.INITIATED,
+                }
+            )
+            
+            payment.mark_as_success(admin_user=self.request.user)
+
+        elif order.status in [Order.Status.CANCELLED, Order.Status.REFUNDED, Order.Status.FAILED]:
+            from payments.models import Payment
+            from downloads.models import PurchaseItem
+
+            # 1. Update Payment status to FAILED if it exists
+            if hasattr(order, 'payment'):
+                payment = order.payment
+                payment.status = Payment.Status.FAILED
+                payment.verified_by = self.request.user
+                payment.verified_at = timezone.now()
+                payment.save(update_fields=["status", "verified_by", "verified_at"])
+
+            # 2. Deactivate PurchaseItems (Revoke Access)
+            PurchaseItem.objects.filter(order_item__order=order).update(is_active=False)
+
+
 

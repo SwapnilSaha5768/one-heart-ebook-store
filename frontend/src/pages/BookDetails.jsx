@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../features/cart/cartSlice";
+import { fetchBookBySlug } from "../api/booksApi";
 
 export default function BookDetails() {
   const { slug } = useParams();
@@ -12,10 +13,13 @@ export default function BookDetails() {
   const cart = useSelector((state) => state.cart);
 
   useEffect(() => {
-    fetch(`http://127.0.0.1:8000/api/books/${slug}/`)
-      .then((res) => res.json())
-      .then((data) => {
-        setBook(data);
+    fetchBookBySlug(slug)
+      .then((res) => {
+        setBook(res.data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("Failed to fetch book:", err);
         setLoading(false);
       });
   }, [slug]);
