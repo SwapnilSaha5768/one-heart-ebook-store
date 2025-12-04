@@ -149,7 +149,9 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # Cloudinary Configuration
 # Cloudinary Configuration
 # Enable if explicitly set OR if running in production (DEBUG=False)
-if env.bool("USE_CLOUDINARY", default=False) or not DEBUG:
+use_cloudinary = env.bool("USE_CLOUDINARY", default=False) or not DEBUG
+
+if use_cloudinary:
     INSTALLED_APPS += ['cloudinary_storage', 'cloudinary']
     
     CLOUDINARY_STORAGE = {
@@ -158,7 +160,25 @@ if env.bool("USE_CLOUDINARY", default=False) or not DEBUG:
         'API_SECRET': env('CLOUDINARY_API_SECRET'),
     }
     
-    DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+    # Django 5.0+ Configuration
+    STORAGES = {
+        "default": {
+            "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
+        },
+        "staticfiles": {
+            "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+        },
+    }
+else:
+    # Local storage for development
+    STORAGES = {
+        "default": {
+            "BACKEND": "django.core.files.storage.FileSystemStorage",
+        },
+        "staticfiles": {
+            "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+        },
+    }
 
 # ============================
 # Authentication
@@ -188,7 +208,7 @@ USE_TZ = True
 # ============================
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# STATICFILES_STORAGE is now configured in STORAGES above
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
