@@ -147,7 +147,7 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 # Cloudinary Configuration
-if env("USE_CLOUDINARY", default=False):
+if env.bool("USE_CLOUDINARY", default=False):
     INSTALLED_APPS += ['cloudinary_storage', 'cloudinary']
     
     CLOUDINARY_STORAGE = {

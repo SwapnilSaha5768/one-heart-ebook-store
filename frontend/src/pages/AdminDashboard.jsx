@@ -602,6 +602,16 @@ const AdminDashboard = () => {
                                                 className="w-full px-4 py-2 border rounded-lg"
                                             />
                                         </div>
+                                        <div className="flex items-center gap-2">
+                                            <input
+                                                type="checkbox"
+                                                name="is_published"
+                                                checked={formData.is_published || false}
+                                                onChange={(e) => setFormData(prev => ({ ...prev, is_published: e.target.checked }))}
+                                                className="rounded text-brand-red focus:ring-brand-red"
+                                            />
+                                            <label className="text-sm font-medium text-gray-700">Published</label>
+                                        </div>
                                     </>
                                 )}
 
