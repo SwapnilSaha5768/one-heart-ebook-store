@@ -18,29 +18,30 @@ class IsAdminOrReadOnly(permissions.BasePermission):
         return bool(request.user and request.user.is_staff)
 
 
-class PostViewSet(viewsets.ModelViewSet):
+class PostViewSet(viewsets.ReadOnlyModelViewSet):
     """
-    /api/blog/posts/         -> list (only published)
-    /api/blog/posts/<id>/    -> retrieve
-    /api/blog/posts/ (POST)  -> create (admin only)
+    Public API: /api/blog/posts/
+    - List: Only published posts
+    - Retrieve: Only published posts
     """
-    queryset = Post.objects.all()
-    permission_classes = [IsAdminOrReadOnly]
-
-    def get_queryset(self):
-        qs = Post.objects.filter(is_published=True)
-        # Optionally let admins see drafts:
-        if self.request.user.is_staff:
-            qs = Post.objects.all()
-        return qs
+    queryset = Post.objects.filter(is_published=True)
+    serializer_class = PostListSerializer
+    permission_classes = [permissions.AllowAny]
 
     def get_serializer_class(self):
-        if self.request.user.is_staff:
-            return AdminPostSerializer
-        if self.action == "list":
-            return PostListSerializer
-        return PostDetailSerializer
+        if self.action == "retrieve":
+            return PostDetailSerializer
+        return PostListSerializer
+
+
+class AdminPostViewSet(viewsets.ModelViewSet):
+    """
+    Admin API: /api/admin/blog/posts/
+    - Full CRUD for admins
+    """
+    queryset = Post.objects.all()
+    serializer_class = AdminPostSerializer
+    permission_classes = [permissions.IsAdminUser]
 
     def perform_create(self, serializer):
-        # set author automatically
         serializer.save(author=self.request.user)

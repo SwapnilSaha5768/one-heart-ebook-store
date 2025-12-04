@@ -95,13 +95,24 @@ class OrderSerializer(serializers.ModelSerializer):
 
 
 class AdminOrderSerializer(OrderSerializer):
+    user_details = serializers.SerializerMethodField()
+
     class Meta(OrderSerializer.Meta):
+        fields = OrderSerializer.Meta.fields + ['user_details']
         read_only_fields = [
             'order_number',
-            # 'status',  <-- Removed from read_only
             'user',
             'paid_at',
             'created_at',
             'updated_at',
         ]
+
+    def get_user_details(self, obj):
+        if obj.user:
+            return {
+                "id": obj.user.id,
+                "username": obj.user.username,
+                "email": obj.user.email,
+            }
+        return None
 

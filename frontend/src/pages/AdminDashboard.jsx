@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { LayoutDashboard, BookOpen, FileText, ShoppingBag, Users, Settings, Calendar, Plus, Edit2, Trash2, X, CheckSquare, Square } from "lucide-react";
 import {
-    getDashboardStats, getAdminOrders, updateOrderStatus,
+    getDashboardStats, getAdminOrders, updateOrderStatus, deleteOrder,
     getAdminBooks, createBook, updateBook, deleteBook,
     getAdminBlogs, createBlog, updateBlog, deleteBlog,
     getAdminUsers, getAuthors, getCategories, getTags, createAuthor
@@ -106,6 +106,9 @@ const AdminDashboard = () => {
             } else if (type === 'blog') {
                 await deleteBlog(id);
                 setBlogs(prev => prev.filter(b => b.id !== id));
+            } else if (type === 'order') {
+                await deleteOrder(id);
+                setOrders(prev => prev.filter(o => o.id !== id));
             }
         } catch (error) {
             console.error("Delete failed:", error);
@@ -314,7 +317,9 @@ const AdminDashboard = () => {
                                                         <div className="flex flex-wrap items-center justify-between gap-4">
                                                             <div>
                                                                 <h4 className="font-bold text-gray-900">Order #{order.order_number || order.id}</h4>
-                                                                <p className="text-sm text-gray-500">User: {order.user?.username || "Unknown"}</p>
+                                                                <p className="text-sm text-gray-500">
+                                                                    User: {order.user_details?.username || order.user_details?.email || "Unknown"}
+                                                                </p>
                                                                 <div className="flex items-center gap-2 text-sm text-gray-500">
                                                                     <Calendar size={14} />
                                                                     <span>{new Date(order.created_at).toLocaleDateString()}</span>
@@ -342,6 +347,14 @@ const AdminDashboard = () => {
                                                                     <option value="failed">Failed</option>
                                                                     <option value="cancelled">Cancelled</option>
                                                                 </select>
+
+                                                                <button
+                                                                    onClick={() => handleDelete('order', order.id)}
+                                                                    className="p-2 text-red-500 hover:text-red-700 bg-red-50 rounded-lg ml-2"
+                                                                    title="Delete Order"
+                                                                >
+                                                                    <Trash2 size={18} />
+                                                                </button>
                                                             </div>
                                                         </div>
                                                     </div>

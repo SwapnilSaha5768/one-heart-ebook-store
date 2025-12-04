@@ -15,13 +15,17 @@ export const updateOrderStatus = async (id, status) => {
     return response.data;
 };
 
+export const deleteOrder = async (id) => {
+    await axiosClient.delete(`/orders/admin/${id}/`);
+};
+
 export const getAdminBooks = async () => {
     const response = await axiosClient.get("/admin/books/");
     return response.data;
 };
 
 export const getAdminBlogs = async () => {
-    const response = await axiosClient.get("/blog/posts/");
+    const response = await axiosClient.get("/admin/blog/posts/");
     return response.data;
 };
 
@@ -71,19 +75,19 @@ export const deleteBook = async (id) => {
 
 // Blogs CRUD
 export const createBlog = async (data) => {
-    const response = await axiosClient.post("/blog/posts/", data, {
+    const response = await axiosClient.post("/admin/blog/posts/", data, {
         headers: { "Content-Type": "multipart/form-data" },
     });
     return response.data;
 };
 
 export const updateBlog = async (id, data) => {
-    const response = await axiosClient.patch(`/blog/posts/${id}/`, data, {
+    const response = await axiosClient.patch(`/admin/blog/posts/${id}/`, data, {
         headers: { "Content-Type": "multipart/form-data" },
     });
     return response.data;
 };
 
 export const deleteBlog = async (id) => {
-    await axiosClient.delete(`/blog/posts/${id}/`);
+    await axiosClient.delete(`/admin/blog/posts/${id}/`);
 };

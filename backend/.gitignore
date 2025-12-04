@@ -1,8 +1,34 @@
+# Environment
 .env
 venv/
+env/
+
+# Python
 __pycache__/
 *.pyc
+*.pyo
+*.pyd
+
+# Database
 db.sqlite3
-staticfiles/
-media/
 dump.sql
+*.sql
+
+# Media & Static
+media/
+staticfiles/
+avatars/
+
+# Scripts & Logs
+migrate.bat
+*.log
+*.pot
+*.mo
+
+# IDE & OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+migrate.bat
