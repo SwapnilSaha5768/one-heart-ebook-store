@@ -109,7 +109,11 @@ const AdminDashboard = () => {
             }
         } catch (error) {
             console.error("Delete failed:", error);
-            alert("Failed to delete item");
+            if (error.response && error.response.data && error.response.data.error) {
+                alert(error.response.data.error);
+            } else {
+                alert("Failed to delete item");
+            }
         }
     };
 
@@ -240,9 +244,9 @@ const AdminDashboard = () => {
     const SidebarItem = ({ id, icon: Icon, label }) => (
         <button
             onClick={() => setActiveTab(id)}
-            className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 ${activeTab === id
-                    ? "bg-brand-red text-white shadow-md"
-                    : "text-gray-600 hover:bg-red-50 hover:text-brand-red"
+            className={`flex-shrink-0 lg:w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 whitespace-nowrap ${activeTab === id
+                ? "bg-brand-red text-white shadow-md"
+                : "text-gray-600 hover:bg-red-50 hover:text-brand-red"
                 }`}
         >
             <Icon size={20} />
@@ -262,7 +266,7 @@ const AdminDashboard = () => {
                     {/* Sidebar */}
                     <div className="w-full lg:w-64 flex-shrink-0">
                         <div className="bg-white rounded-2xl shadow-sm p-6 border border-gray-100">
-                            <nav className="space-y-2">
+                            <nav className="flex lg:flex-col overflow-x-auto lg:overflow-visible space-x-2 lg:space-x-0 lg:space-y-2 pb-2 lg:pb-0 hide-scrollbar">
                                 <SidebarItem id="overview" icon={LayoutDashboard} label="Overview" />
                                 <SidebarItem id="orders" icon={ShoppingBag} label="Orders" />
                                 <SidebarItem id="books" icon={BookOpen} label="Books" />
@@ -357,22 +361,26 @@ const AdminDashboard = () => {
                                             </div>
                                             <div className="space-y-4">
                                                 {books.map((book) => (
-                                                    <div key={book.id} className="flex items-center gap-4 bg-white p-4 rounded-xl border border-gray-100">
-                                                        <img src={book.cover_image} alt={book.title} className="w-12 h-16 object-cover rounded" />
-                                                        <div className="flex-1">
-                                                            <h4 className="font-bold text-gray-900">{book.title}</h4>
-                                                            <p className="text-sm text-gray-500">
-                                                                {book.authors?.map(a => typeof a === 'object' ? a.name : a).join(', ')}
-                                                            </p>
+                                                    <div key={book.id} className="flex flex-col sm:flex-row items-start sm:items-center gap-4 bg-white p-4 rounded-xl border border-gray-100">
+                                                        <div className="flex items-center gap-4 w-full sm:w-auto">
+                                                            <img src={book.cover_image} alt={book.title} className="w-12 h-16 object-cover rounded" />
+                                                            <div className="flex-1 sm:flex-none">
+                                                                <h4 className="font-bold text-gray-900 line-clamp-1">{book.title}</h4>
+                                                                <p className="text-sm text-gray-500 line-clamp-1">
+                                                                    {book.authors?.map(a => typeof a === 'object' ? a.name : a).join(', ')}
+                                                                </p>
+                                                            </div>
                                                         </div>
-                                                        <div className="font-bold text-gray-900 mr-4">৳{book.price}</div>
-                                                        <div className="flex gap-2">
-                                                            <button onClick={() => openModal('book', book)} className="p-2 text-gray-600 hover:text-brand-red bg-gray-50 rounded-lg">
-                                                                <Edit2 size={18} />
-                                                            </button>
-                                                            <button onClick={() => handleDelete('book', book.id)} className="p-2 text-red-500 hover:text-red-700 bg-red-50 rounded-lg">
-                                                                <Trash2 size={18} />
-                                                            </button>
+                                                        <div className="flex-1 w-full sm:w-auto flex justify-between sm:justify-end items-center gap-4">
+                                                            <div className="font-bold text-gray-900">৳{book.price}</div>
+                                                            <div className="flex gap-2">
+                                                                <button onClick={() => openModal('book', book)} className="p-2 text-gray-600 hover:text-brand-red bg-gray-50 rounded-lg">
+                                                                    <Edit2 size={18} />
+                                                                </button>
+                                                                <button onClick={() => handleDelete('book', book.id)} className="p-2 text-red-500 hover:text-red-700 bg-red-50 rounded-lg">
+                                                                    <Trash2 size={18} />
+                                                                </button>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 ))}
@@ -391,12 +399,12 @@ const AdminDashboard = () => {
                                             </div>
                                             <div className="space-y-4">
                                                 {blogs.map((blog) => (
-                                                    <div key={blog.id} className="flex items-center justify-between bg-white p-4 rounded-xl border border-gray-100">
+                                                    <div key={blog.id} className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-white p-4 rounded-xl border border-gray-100">
                                                         <div>
-                                                            <h4 className="font-bold text-gray-900">{blog.title}</h4>
+                                                            <h4 className="font-bold text-gray-900 line-clamp-1">{blog.title}</h4>
                                                             <p className="text-sm text-gray-500">{new Date(blog.created_at).toLocaleDateString()}</p>
                                                         </div>
-                                                        <div className="flex gap-2">
+                                                        <div className="flex gap-2 self-end sm:self-auto">
                                                             <button onClick={() => openModal('blog', blog)} className="p-2 text-gray-600 hover:text-brand-red bg-gray-50 rounded-lg">
                                                                 <Edit2 size={18} />
                                                             </button>
@@ -416,12 +424,12 @@ const AdminDashboard = () => {
                                             <h2 className="text-xl font-bold mb-4">Manage Users</h2>
                                             <div className="space-y-4">
                                                 {users.map((u) => (
-                                                    <div key={u.id} className="flex items-center justify-between bg-white p-4 rounded-xl border border-gray-100">
+                                                    <div key={u.id} className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-white p-4 rounded-xl border border-gray-100">
                                                         <div>
-                                                            <h4 className="font-bold text-gray-900">{u.username}</h4>
-                                                            <p className="text-sm text-gray-500">{u.email}</p>
+                                                            <h4 className="font-bold text-gray-900 line-clamp-1">{u.username}</h4>
+                                                            <p className="text-sm text-gray-500 line-clamp-1">{u.email}</p>
                                                         </div>
-                                                        <div className="flex gap-2">
+                                                        <div className="flex gap-2 self-end sm:self-auto">
                                                             {u.is_superuser && <span className="px-2 py-1 bg-purple-100 text-purple-700 text-xs rounded-full font-bold">Superuser</span>}
                                                             {u.is_staff && <span className="px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded-full font-bold">Staff</span>}
                                                         </div>
@@ -441,7 +449,7 @@ const AdminDashboard = () => {
                 {showModal && (
                     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
                         <div className="bg-white rounded-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
-                            <div className="flex justify-between items-center p-6 border-b border-gray-100">
+                            <div className="flex justify-between items-center p-4 sm:p-6 border-b border-gray-100">
                                 <h3 className="text-xl font-bold">
                                     {editingItem ? 'Edit' : 'Add'} {modalType === 'book' ? 'Book' : 'Blog'}
                                 </h3>
@@ -449,7 +457,7 @@ const AdminDashboard = () => {
                                     <X size={24} />
                                 </button>
                             </div>
-                            <form onSubmit={handleModalSubmit} className="p-6 space-y-4">
+                            <form onSubmit={handleModalSubmit} className="p-4 sm:p-6 space-y-4">
                                 {modalType === 'book' && (
                                     <>
                                         <div>

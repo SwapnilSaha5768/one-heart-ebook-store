@@ -80,3 +80,16 @@ class AdminBookViewSet(viewsets.ModelViewSet):
     serializer_class = AdminBookSerializer
     permission_classes = [permissions.IsAdminUser]
 
+    def destroy(self, request, *args, **kwargs):
+        from django.db.models import ProtectedError
+        from rest_framework.response import Response
+        from rest_framework import status
+
+        try:
+            return super().destroy(request, *args, **kwargs)
+        except ProtectedError:
+            return Response(
+                {"error": "Cannot delete this book because it is part of an existing order. Please archive it instead."},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
